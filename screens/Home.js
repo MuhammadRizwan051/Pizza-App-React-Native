@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import style from '../styling'
 import database from '@react-native-firebase/database'
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   let [dataLoader, setDataLoader] = useState(false)
   let [list, setList] = useState([])
 
@@ -36,14 +36,14 @@ const Home = ({navigation}) => {
           <ScrollView>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 10 }} >
               {list.length > 0 ? list.map((e, i) => (
-                <TouchableOpacity onPress={()=>navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
-                  <View style={{ borderRadius: 10, borderWidth: 1, backgroundColor:'white' }}>
-                    <View style={{alignItems:'center'}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
+                  <View style={{ borderRadius: 10, borderWidth: 1, backgroundColor: 'white' }}>
+                    <View style={{ alignItems: 'center' }}>
                       <Image resizeMode='stretch' style={{ height: 150, width: '90%', borderRadius: 10, }} source={{ uri: 'https://pizzamax.com.pk/_next/image?url=https%3A%2F%2Fem-cdn.eatmubarak.pk%2F55083%2Fdish_image%2F1658491791.jpg&w=1920&q=100' }} />
                     </View>
-                    <View style={{paddingVertical:10}}>
-                      <Text style={{ marginLeft:20, fontWeight: 'bold', fontSize: 18, color: 'black' }}>{e.name}</Text>
-                      <Text style={{ marginLeft:20, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
+                    <View style={{ paddingVertical: 10 }}>
+                      <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 18, color: 'black' }}>{e.name}</Text>
+                      <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
