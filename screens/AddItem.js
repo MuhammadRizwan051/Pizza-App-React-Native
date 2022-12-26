@@ -1,10 +1,35 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
+import React, { useState } from 'react'
 import SMTextInput from '../component/SMTextInput'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import style from '../styling'
+import database from '@react-native-firebase/database'
 
 const AddItem = () => {
+
+  const initialData = {
+    name: '',
+    price: '',
+    id: ''
+  }
+
+  let [isLoading, setIsLoading] = useState(false)
+  let [model, setModel] = useState(initialData)
+
+  let add = () => {
+    setIsLoading(true)
+    model.id = database().ref('addItem/').push().key
+    database().ref(`addItem/${model.id}`).set(model)
+      .then(res => {
+        setIsLoading(false)
+        setModel(initialData)
+        ToastAndroid.show('Item created Successfully', ToastAndroid.LONG)
+      })
+      .catch(err => {
+        setIsLoading(false)
+        console.log(err)
+      })
+  }
   return (
     <View>
       <View style={[style.bgDark, { paddingVertical: 10 }]}>
@@ -12,10 +37,10 @@ const AddItem = () => {
       </View>
       <View style={{ alignItems: 'center', marginTop: 25 }}>
         <View style={{ width: '80%' }}>
-          <SMTextInput placeholder='Name' style={[styles.input]} />
-          <SMTextInput placeholder='Price' style={[styles.input]} />
+          <SMTextInput value={model.name} placeholder='Name' style={[styles.input]} onChangeText={e => setModel({ ...model, name: e })} />
+          <SMTextInput value={model.price} placeholder='Price' style={[styles.input]} onChangeText={e => setModel({ ...model, price: e })} />
         </View>
-        <SMTouchableOpacity value='Add' touchableStyle={[style.bgDark, { width: '20%', paddingVertical: 5 }]} textStyle={[style.colorWhite, { textAlign: 'center' }]} />
+        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={20} /> : 'Add'} touchableStyle={[style.bgDark, { width: '20%', paddingVertical: 5 }]} textStyle={[style.colorWhite, { textAlign: 'center' }]} />
       </View>
     </View>
   )
@@ -26,7 +51,6 @@ export default AddItem
 const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
-    // borderRadius: 10,
     paddingBottom: 5,
     marginBottom: 5
   }

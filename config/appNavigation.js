@@ -1,17 +1,11 @@
-// import 'react-native-gesture-handler';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Orders from '../screens/Orders';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Image, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import { Image, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddItem from '../screens/AddItem';
-
-// const Drawer = createDrawerNavigator();
 
 
 const Stack = createNativeStackNavigator()
