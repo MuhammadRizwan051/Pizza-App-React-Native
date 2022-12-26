@@ -6,12 +6,14 @@ import { Image, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddItem from '../screens/AddItem';
+import ItemDetails from '../screens/ItemDetails';
 
 
 const Stack = createNativeStackNavigator()
 const StackNavigator = () => (
     <Stack.Navigator>
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name='Item Details' component={ItemDetails} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
