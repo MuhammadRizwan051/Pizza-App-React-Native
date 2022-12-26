@@ -8,8 +8,35 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddItem from '../screens/AddItem';
 import ItemDetails from '../screens/ItemDetails';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 
-let category = 'admin'
+
+let category;
+function AppNavigation() {
+    let [userData, setUserData] = useState()
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('SignupUser')
+            setUserData(JSON.parse(jsonValue))
+            console.log('Home', JSON.parse(jsonValue))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    category = userData && userData.user.email
+    setTimeout(() => {
+        getData()
+    }, 15000)
+    console.log('user---->',category)
+
+    return (
+        <NavigationContainer>
+            <StackNavigator />
+        </NavigationContainer>
+    )
+
+}
 
 const Stack = createNativeStackNavigator()
 const StackNavigator = () => (
@@ -47,7 +74,7 @@ const TabNavigator = () => (
                     </>
                 )
             }} />
-        {category === 'user' &&
+        {category === 'user@gmail.com' &&
             <Tab.Screen name="Add"
                 component={AddItem}
                 options={{
@@ -61,16 +88,6 @@ const TabNavigator = () => (
         }
     </Tab.Navigator>
 )
-
-
-function AppNavigation() {
-    return (
-        <NavigationContainer>
-            <StackNavigator />
-        </NavigationContainer>
-    )
-
-}
 
 export default AppNavigation
 
