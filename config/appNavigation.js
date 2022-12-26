@@ -1,5 +1,6 @@
 import Home from '../screens/Home';
 import Login from '../screens/Login';
+import SignUp from '../screens/Signup';
 import Orders from '../screens/Orders';
 import { NavigationContainer } from '@react-navigation/native';
 import { Image, Text } from 'react-native';
@@ -8,11 +9,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddItem from '../screens/AddItem';
 import ItemDetails from '../screens/ItemDetails';
 
+let category = 'admin'
 
 const Stack = createNativeStackNavigator()
 const StackNavigator = () => (
     <Stack.Navigator>
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name='Item Details' component={ItemDetails} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
@@ -44,16 +47,18 @@ const TabNavigator = () => (
                     </>
                 )
             }} />
-        <Tab.Screen name="Add"
-            component={AddItem}
-            options={{
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
-                        <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text>
-                    </>
-                )
-            }} />
+        {category === 'user' &&
+            <Tab.Screen name="Add"
+                component={AddItem}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <>
+                            <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
+                            <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text>
+                        </>
+                    )
+                }} />
+        }
     </Tab.Navigator>
 )
 
