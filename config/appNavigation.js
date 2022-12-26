@@ -25,9 +25,9 @@ function AppNavigation() {
         }
     }
     category = userData && userData.user.email
-    setTimeout(() => {
+    useEffect(() => {
         getData()
-    }, 15000)
+    }, [])
     console.log('user---->',category)
 
     return (

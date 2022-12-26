@@ -26,16 +26,16 @@ function SignUp({ navigation }) {
         console.log(res)
         const storeData = async () => {
           try {
-              const jsonValue = JSON.stringify(res)
-              await AsyncStorage.setItem('SignupUser', jsonValue)
-              console.log('Data stored', jsonValue)
+            const jsonValue = JSON.stringify(res)
+            await AsyncStorage.setItem('SignupUser', jsonValue)
+            console.log('Data stored', jsonValue)
           } catch (e) {
-              // saving error
-              console.log('Data not stored')
+            // saving error
+            console.log('Data not stored')
           }
-      }
+        }
 
-      storeData()
+        storeData()
       })
       .catch(err => {
         setModel(initialData)
