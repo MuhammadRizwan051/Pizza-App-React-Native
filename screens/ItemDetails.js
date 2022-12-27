@@ -5,10 +5,19 @@ import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 const ItemDetails = ({ navigation, route }) => {
+  let [model, setModel] = useState('')
   let obj = route.params
-  let [isLoading, setIsLoading] = useState(false)
 
   let addToCart = () => {
+    model.id = database().ref('addToCart/').push().key
+    database().ref(`addItem/${model.id}`).set(model)
+      .then(res => {
+        setModel(initialData)
+        ToastAndroid.show('Item created Successfully', ToastAndroid.LONG)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     console.log('Item added')
   }
 
