@@ -15,27 +15,35 @@ import { useEffect, useState } from 'react';
 let category;
 function AppNavigation() {
     let [userData, setUserData] = useState()
+
+
     const getData = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem('LoginUser')
-            setUserData(JSON.parse(jsonValue))
-            console.log('Home', JSON.parse(jsonValue))
+            const value = await AsyncStorage.getItem('LoginKey')
+            if (value !== null) {
+                category = value
+                console.log('ifgetData', category)
+            }
+            else {
+                console.log('elsegetData', category)
+            }
         } catch (e) {
             console.log(e)
         }
     }
-    category = userData && userData.user.email
-    useEffect(() => {
-        getData()
-    }, [])
-    console.log('user---->',category)
+
+    let a = async () => {
+        console.log('userbefore---->', category)
+        await getData()
+        console.log('userafter---->', category)
+    }
+    a()
 
     return (
         <NavigationContainer>
             <StackNavigator />
         </NavigationContainer>
     )
-
 }
 
 const Stack = createNativeStackNavigator()
@@ -63,10 +71,10 @@ const TabNavigator = () => (
                     </>
                 )
             }} />
-        <Tab.Screen name="Orders"
+        {category && category === 'admin' && <Tab.Screen name="Orders"
             component={Orders}
             options={{
-                tabBarBadge: 2,
+                tabBarBadge: 1,
                 tabBarIcon: ({ focused }) => (
                     <>
                         <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/7322/7322265.png' }} />
@@ -74,7 +82,8 @@ const TabNavigator = () => (
                     </>
                 )
             }} />
-        {category === 'user@gmail.com' &&
+        }
+        {category === 'admin' &&
             <Tab.Screen name="Add"
                 component={AddItem}
                 options={{

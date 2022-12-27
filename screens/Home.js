@@ -4,6 +4,7 @@ import style from '../styling'
 import database from '@react-native-firebase/database'
 
 const Home = ({ navigation }) => {
+
   let [dataLoader, setDataLoader] = useState(false)
   let [list, setList] = useState([])
 

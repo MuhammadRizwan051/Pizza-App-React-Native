@@ -4,33 +4,52 @@ import SMTextInput from '../component/SMTextInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import database from '@react-native-firebase/database'
 
 
 function Login({ navigation }) {
+  // let [category, setCategory] = useState();
   const [model, setModel] = useState({});
   const [isLoading, setIsLoading] = useState(false)
 
+  let category;
   let loginuser = () => {
     setIsLoading(true)
+
     auth().signInWithEmailAndPassword(model.email, model.password)
-      .then(res => {
+      .then(async res => {
         setIsLoading(false)
-        console.log(res)
-        navigation.navigate('HomeScreen')
-
-        const storeData = async () => {
-          try {
-            const jsonValue = JSON.stringify(res)
-            await AsyncStorage.setItem('LoginUser', jsonValue)
-            console.log('Data stored', jsonValue)
-          } catch (e) {
-            // saving error
-            console.log('Data not stored')
+        const user = res.user
+        await database().ref(`appUsers/${user.uid}`).on('value', dt => {
+          category = dt.val().category
+          
+          const storeData = async () => {
+            try {
+              await AsyncStorage.setItem('LoginKey', category)
+              navigation.navigate('HomeScreen', category)
+              console.log('Data stored', category)
+            } catch (e) {
+              // saving error
+              console.log('Data not stored in Async', e)
+            }
           }
-        }
-        storeData()
+          storeData()
 
+          let category;
+          const getData = async () => {
+            try {
+              const value = await AsyncStorage.getItem('LoginUser')
+              if (value !== null) {
+                category = value
+                navigation.navigate('HomeScreen', category)
+                console.log('logincategory', category)
+              }
+            } catch (e) {
+              console.log(e)
+            }
+          }
+          getData()
+        })
       })
       .catch(err => {
         setIsLoading(false)

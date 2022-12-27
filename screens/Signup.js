@@ -10,7 +10,7 @@ function SignUp({ navigation }) {
   let initialData = {
     email: '',
     password: '',
-    category: 'admin'
+    category: 'user'
   }
   const [model, setModel] = useState(initialData)
   const [isLoading, setIsLoading] = useState(false)
@@ -21,10 +21,11 @@ function SignUp({ navigation }) {
     auth().createUserWithEmailAndPassword(model.email, model.password, model.category)
       .then(res => {
         setIsLoading(false)
-        setModel(initialData)
-        console.log(res)
-        model.id = database().ref(`appUsers/`).push().key
+        model.id = res.user.uid;
         database().ref(`appUsers/${model.id}`).set(model)
+        
+        setModel(initialData)
+        console.log('res', res)
       })
       .catch(err => {
         setModel(initialData)
