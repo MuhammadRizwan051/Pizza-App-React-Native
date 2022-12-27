@@ -1,4 +1,4 @@
-import { View, Text, Image, ActivityIndicator } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React, { useState } from 'react'
 import style from '../styling'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
