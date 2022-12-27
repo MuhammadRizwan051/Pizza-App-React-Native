@@ -17,7 +17,7 @@ function AppNavigation() {
     let [userData, setUserData] = useState()
     const getData = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem('SignupUser')
+            const jsonValue = await AsyncStorage.getItem('LoginUser')
             setUserData(JSON.parse(jsonValue))
             console.log('Home', JSON.parse(jsonValue))
         } catch (e) {

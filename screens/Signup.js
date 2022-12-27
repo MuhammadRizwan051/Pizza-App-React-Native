@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SMTextInput from '../component/SMTextInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import database from '@react-native-firebase/database'
 
 
@@ -13,7 +12,7 @@ function SignUp({ navigation }) {
     password: '',
     category: 'admin'
   }
-  const [model, setModel] = useState(initialData);
+  const [model, setModel] = useState(initialData)
   const [isLoading, setIsLoading] = useState(false)
 
 
@@ -24,18 +23,8 @@ function SignUp({ navigation }) {
         setIsLoading(false)
         setModel(initialData)
         console.log(res)
-        const storeData = async () => {
-          try {
-            const jsonValue = JSON.stringify(res)
-            await AsyncStorage.setItem('SignupUser', jsonValue)
-            console.log('Data stored', jsonValue)
-          } catch (e) {
-            // saving error
-            console.log('Data not stored')
-          }
-        }
-
-        storeData()
+        model.id = database().ref(`appUsers/`).push().key
+        database().ref(`appUsers/${model.id}`).set(model)
       })
       .catch(err => {
         setModel(initialData)

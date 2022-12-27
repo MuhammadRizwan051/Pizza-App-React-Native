@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SMTextInput from '../component/SMTextInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 function Login({ navigation }) {
@@ -16,6 +18,19 @@ function Login({ navigation }) {
         setIsLoading(false)
         console.log(res)
         navigation.navigate('HomeScreen')
+
+        const storeData = async () => {
+          try {
+            const jsonValue = JSON.stringify(res)
+            await AsyncStorage.setItem('LoginUser', jsonValue)
+            console.log('Data stored', jsonValue)
+          } catch (e) {
+            // saving error
+            console.log('Data not stored')
+          }
+        }
+        storeData()
+
       })
       .catch(err => {
         setIsLoading(false)
