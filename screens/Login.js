@@ -18,7 +18,6 @@ function Login({ navigation }) {
 
     auth().signInWithEmailAndPassword(model.email, model.password)
       .then(res => {
-        setIsLoading(false)
         const user = res.user
         database().ref(`appUsers/${user.uid}`).on('value', dt => {
           category = dt.val().category
@@ -27,6 +26,7 @@ function Login({ navigation }) {
             try {
               const jsonValue = JSON.stringify(dt.val())
               await AsyncStorage.setItem('LoginKey', jsonValue)
+              setIsLoading(false)
               navigation.navigate('HomeScreen')
               console.log('Data stored', jsonValue)
             } catch (e) {

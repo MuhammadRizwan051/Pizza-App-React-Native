@@ -2,7 +2,6 @@ import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity } fr
 import React, { useEffect, useState } from 'react'
 import style from '../styling'
 import database from '@react-native-firebase/database'
-import '../screens/Login'
 
 const Home = ({ navigation }) => {
 
@@ -30,7 +29,7 @@ const Home = ({ navigation }) => {
     <>
       <View>
         <View style={[style.bgDark, { paddingVertical: 10 }]}>
-          <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{global.getCategory}</Text>
+          <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>Home</Text>
         </View>
         {dataLoader ? <View style={{ height: '100%', justifyContent: 'center' }}>
           <ActivityIndicator size={60} color='red' />
