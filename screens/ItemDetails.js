@@ -8,6 +8,10 @@ const ItemDetails = ({ navigation, route }) => {
   let obj = route.params
   let [isLoading, setIsLoading] = useState(false)
 
+  let addToCart = () => {
+    console.log('Item added')
+  }
+
   return (
     <View>
       <View style={{ height: '40%', backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
@@ -20,7 +24,7 @@ const ItemDetails = ({ navigation, route }) => {
         </View>
         <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 16, color: 'lightgrey', marginTop: 10 }}>{obj.price}/- PKR</Text>
         <View style={{ alignItems: 'center', position: 'absolute', bottom: 40, left: 0, right: 0 }}>
-          <SMTouchableOpacity value='Add To Cart'
+          <SMTouchableOpacity onPress={addToCart} value='Add To Cart'
             touchableStyle={[style.bgWhite, { width: '70%', paddingVertical: 10, borderRadius: 20 }]}
             textStyle={[style.colorDark, { textAlign: 'center', fontWeight: 'bold', fontSize: 20 }]} />
         </View>
