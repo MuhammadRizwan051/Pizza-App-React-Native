@@ -17,38 +17,24 @@ function Login({ navigation }) {
     setIsLoading(true)
 
     auth().signInWithEmailAndPassword(model.email, model.password)
-      .then(async res => {
+      .then(res => {
         setIsLoading(false)
         const user = res.user
-        await database().ref(`appUsers/${user.uid}`).on('value', dt => {
+        database().ref(`appUsers/${user.uid}`).on('value', dt => {
           category = dt.val().category
-          
+
           const storeData = async () => {
             try {
-              await AsyncStorage.setItem('LoginKey', category)
-              navigation.navigate('HomeScreen', category)
-              console.log('Data stored', category)
+              const jsonValue = JSON.stringify(dt.val())
+              await AsyncStorage.setItem('LoginKey', jsonValue)
+              navigation.navigate('HomeScreen')
+              console.log('Data stored', jsonValue)
             } catch (e) {
               // saving error
-              console.log('Data not stored in Async', e)
+              console.log('Data not stored', e)
             }
           }
           storeData()
-
-          let category;
-          const getData = async () => {
-            try {
-              const value = await AsyncStorage.getItem('LoginUser')
-              if (value !== null) {
-                category = value
-                navigation.navigate('HomeScreen', category)
-                console.log('logincategory', category)
-              }
-            } catch (e) {
-              console.log(e)
-            }
-          }
-          getData()
         })
       })
       .catch(err => {

@@ -12,32 +12,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 
 
-let category;
+// let category;
+let obj;
+let getCategory
 function AppNavigation() {
-    let [userData, setUserData] = useState()
-
-
-    const getData = async () => {
+    
+    let getData = async () => {
         try {
-            const value = await AsyncStorage.getItem('LoginKey')
-            if (value !== null) {
-                category = value
-                console.log('ifgetData', category)
-            }
-            else {
-                console.log('elsegetData', category)
+            const jsonValue = await AsyncStorage.getItem('LoginKey')
+            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+            if (data) {
+                obj = jsonValue
+                console.log('Data Receive', obj)
             }
         } catch (e) {
             console.log(e)
         }
     }
-
-    let a = async () => {
-        console.log('userbefore---->', category)
-        await getData()
-        console.log('userafter---->', category)
-    }
-    a()
+    getData()
 
     return (
         <NavigationContainer>
@@ -71,7 +63,7 @@ const TabNavigator = () => (
                     </>
                 )
             }} />
-        {category && category === 'admin' && <Tab.Screen name="Orders"
+        <Tab.Screen name="Orders"
             component={Orders}
             options={{
                 tabBarBadge: 1,
@@ -82,8 +74,8 @@ const TabNavigator = () => (
                     </>
                 )
             }} />
-        }
-        {category === 'admin' &&
+        
+        
             <Tab.Screen name="Add"
                 component={AddItem}
                 options={{
@@ -94,7 +86,7 @@ const TabNavigator = () => (
                         </>
                     )
                 }} />
-        }
+        
     </Tab.Navigator>
 )
 
