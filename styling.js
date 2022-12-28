@@ -1,20 +1,27 @@
 import { StyleSheet } from "react-native";
 
 const _dark = '#DC3535'
+const _green = '#285430'
 
 const style = StyleSheet.create({
-    bgDark :{
+    bgDark: {
         backgroundColor: _dark
     },
-    colorDark :{
+    colorDark: {
         color: _dark
     },
-    bgWhite :{
+    bgWhite: {
         backgroundColor: 'white'
     },
-    colorWhite :{
+    colorWhite: {
         color: 'white'
     },
+    bgGreen: {
+        backgroundColor: _green
+    },
+    colorGreen: {
+        color: _green
+    }
 })
 
 export default style

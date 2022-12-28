@@ -59,7 +59,7 @@ const Home = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
                   <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
                     <View style={{ alignItems: 'center' }}>
-                      <Image resizeMode='stretch' style={{ height: 150, width: '90%', borderRadius: 10, }} source={{ uri: 'https://pizzamax.com.pk/_next/image?url=https%3A%2F%2Fem-cdn.eatmubarak.pk%2F55083%2Fdish_image%2F1658491791.jpg&w=1920&q=100' }} />
+                      <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 10, borderTopLeftRadius: 10 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
                     </View>
                     <View style={{ paddingVertical: 10 }}>
                       <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 18, color: 'black' }}>{e.name}</Text>
