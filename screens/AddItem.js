@@ -41,7 +41,7 @@ const AddItem = () => {
           <SMTextInput value={model.detail} placeholder='Detail' style={[styles.input]} onChangeText={e => setModel({ ...model, detail: e })} />
           <SMTextInput keyboardType='number-pad' value={model.price} placeholder='Price' style={[styles.input]} onChangeText={e => setModel({ ...model, price: e })} />
         </View>
-        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={20} /> : 'Add'} touchableStyle={[style.bgDark, { width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }]} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle:'italic' }]} />
+        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={30} /> : 'Add'} touchableStyle={[style.bgDark, { width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }]} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle:'italic' }]} />
       </View>
     </View>
   )

@@ -37,10 +37,10 @@ const Orders = () => {
           <ScrollView>
             <View style={{ flexWrap: 'wrap', paddingHorizontal: 10, marginBottom: 80 }} >
               {list.length > 0 ? list.map((e, i) => (
-                <View style={{ width: '100%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
+                <View style={{ width: '100%', paddingHorizontal: 5, marginTop: 20 }} key={i}>
                   <View style={{ flexDirection: 'row', borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
-                    <View style={{ alignItems: 'center', width: '25%', paddingVertical: 5 }}>
-                      <Image resizeMode='stretch' style={{ height: 75, width: '85%', borderRadius: 10, }} source={{ uri: 'https://pizzamax.com.pk/_next/image?url=https%3A%2F%2Fem-cdn.eatmubarak.pk%2F55083%2Fdish_image%2F1658491791.jpg&w=1920&q=100' }} />
+                    <View style={{ alignItems: 'center', width: '25%' }}>
+                      <Image resizeMode='stretch' style={{ height: 75, width: '100%', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
                     </View>
                     <View style={{ paddingVertical: 10, width: '75%', justifyContent: 'center' }}>
                       <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 22, color: 'black' }}>{e.name}</Text>
