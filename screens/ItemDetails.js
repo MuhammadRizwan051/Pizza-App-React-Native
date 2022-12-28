@@ -1,24 +1,26 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, ToastAndroid, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import style from '../styling'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import database from '@react-native-firebase/database'
 
 const ItemDetails = ({ navigation, route }) => {
-  let [model, setModel] = useState('')
+  let [loader, setLoader] = useState(false)
   let obj = route.params
 
   let addToCart = () => {
-    model.id = database().ref('addToCart/').push().key
-    database().ref(`addItem/${model.id}`).set(model)
-      .then(res => {
-        setModel(initialData)
-        ToastAndroid.show('Item created Successfully', ToastAndroid.LONG)
+    setLoader(true)
+    obj.id = database().ref('addToCart/').push().key
+    database().ref(`addToCart/${obj.id}`).set(obj)
+    .then(res => {
+        setLoader(false)
+        ToastAndroid.show('Item added Successfully', ToastAndroid.LONG)
       })
       .catch(err => {
+        setLoader(false)
         console.log(err)
       })
-    console.log('Item added')
   }
 
   return (
@@ -33,7 +35,7 @@ const ItemDetails = ({ navigation, route }) => {
         </View>
         <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 16, color: 'lightgrey', marginTop: 10 }}>{obj.price}/- PKR</Text>
         <View style={{ alignItems: 'center', position: 'absolute', bottom: 40, left: 0, right: 0 }}>
-          <SMTouchableOpacity onPress={addToCart} value='Add To Cart'
+          <SMTouchableOpacity onPress={addToCart} value={loader? <ActivityIndicator size='large' color='#DC3535' /> : 'Add To Cart'}
             touchableStyle={[style.bgWhite, { width: '70%', paddingVertical: 10, borderRadius: 20 }]}
             textStyle={[style.colorDark, { textAlign: 'center', fontWeight: 'bold', fontSize: 20 }]} />
         </View>
