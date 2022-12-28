@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import style from '../styling'
 import database from '@react-native-firebase/database'
@@ -9,6 +9,16 @@ const Home = ({ navigation }) => {
 
   let [dataLoader, setDataLoader] = useState(false)
   let [list, setList] = useState([])
+  // let [refreshing, setRefreshing] = useState(false)
+
+  // const wait = (timeout) => {
+  //   return new Promise(resolve => setTimeout(resolve, timeout));
+  // }
+
+  // const onRefresh = React.useCallback(() => {
+  //   setRefreshing(true);
+  //   wait(2000).then(() => setRefreshing(false));
+  // }, []);
 
   let getData = () => {
     setDataLoader(true)
@@ -52,7 +62,13 @@ const Home = ({ navigation }) => {
           <ActivityIndicator size={60} color='red' />
         </View>
           :
-          <ScrollView>
+          <ScrollView 
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={refreshing}
+          //     onRefresh={onRefresh}
+            // />}
+            >
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 5 }}>
               {list.length > 0 ? list.map((e, i) => (
                 <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 5, marginTop: 20 }} key={i}>

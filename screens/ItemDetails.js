@@ -1,4 +1,4 @@
-import { View, Text, Image, ToastAndroid, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, ToastAndroid, ActivityIndicator, ScrollView, TouchableOpacity, Modal, StyleSheet, Pressable, Alert } from 'react-native'
 import React, { useState } from 'react'
 import style from '../styling'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
@@ -9,7 +9,8 @@ import SMTextInput from '../component/SMTextInput'
 const ItemDetails = ({ navigation, route }) => {
   let [loader, setLoader] = useState(false)
   let [count, setCount] = useState(1)
-  let [instruction, setinstruction] = useState()
+  const [modalVisible, setModalVisible] = useState(false);
+  let [instruction, setinstruction] = useState('')
   let obj = route.params
 
   let addToCart = () => {
@@ -21,10 +22,13 @@ const ItemDetails = ({ navigation, route }) => {
     database().ref(`addToCart/${obj.id}`).set(obj)
       .then(res => {
         setLoader(false)
-        ToastAndroid.show('Item added Successfully', ToastAndroid.LONG)
+        ToastAndroid.show('Item add to Cart', ToastAndroid.LONG)
+        navigation.navigate('Home')
+        obj = {}
       })
       .catch(err => {
         setLoader(false)
+        obj = {}
         console.log(err)
       })
   }
@@ -68,7 +72,7 @@ const ItemDetails = ({ navigation, route }) => {
           <Icon onPress={add} name='add-circle-outline' size={30} color='#367E18' />
         </View>
         <View style={{ height: '100%', width: '50%', paddingHorizontal: 20 }}>
-          <SMTouchableOpacity onPress={addToCart} value={loader ? <ActivityIndicator size='large' color='#DC3535' /> : 'Add To Cart'}
+          <SMTouchableOpacity onPress={addToCart} value={loader ? <ActivityIndicator size='large' color='white' /> : 'Add To Cart'}
             touchableStyle={{ borderRadius: 5, backgroundColor: '#367E18', width: '100%', paddingVertical: 10 }}
             textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20 }]} />
         </View>

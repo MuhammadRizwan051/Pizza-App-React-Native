@@ -13,11 +13,13 @@ import { useEffect, useState } from 'react';
 import Splash from '../screens/Splash';
 import Favourites from '../screens/Favourites';
 import MyCart from '../screens/MyCart';
+import database from '@react-native-firebase/database'
 
 
 // let category;
 let obj;
 let getCategory
+let listItems;
 function AppNavigation() {
 
     let getData = async () => {
@@ -33,6 +35,21 @@ function AppNavigation() {
         }
     }
     getData()
+
+    let [list, setList] = useState([])
+    let getCartData = () => {
+        database().ref('addToCart').on('value', dt => {
+            if (dt.exists()) {
+                let li = Object.values(dt.val())
+                setList([...li])
+                listItems = list.length
+                console.log(listItems)
+            }
+        })
+    }
+    useEffect(() => {
+        getCartData()
+    }, [])
 
     return (
         <NavigationContainer>
@@ -80,6 +97,7 @@ const TabNavigator = () => (
         <Tab.Screen name="MyCart"
             component={MyCart}
             options={{
+                tabBarBadge: listItems,
                 tabBarIcon: ({ focused }) => (
                     <>
                         <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
