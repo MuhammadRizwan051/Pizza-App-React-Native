@@ -10,13 +10,16 @@ import AddItem from '../screens/AddItem';
 import ItemDetails from '../screens/ItemDetails';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
+import Splash from '../screens/Splash';
+import Favourites from '../screens/Favourites';
+import MyCart from '../screens/MyCart';
 
 
 // let category;
 let obj;
 let getCategory
 function AppNavigation() {
-    
+
     let getData = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem('LoginKey')
@@ -41,9 +44,10 @@ function AppNavigation() {
 const Stack = createNativeStackNavigator()
 const StackNavigator = () => (
     <Stack.Navigator>
+        <Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} />
-        <Stack.Screen name='Item Details' component={ItemDetails}  />
+        <Stack.Screen name='Item Details' component={ItemDetails} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
@@ -58,8 +62,28 @@ const TabNavigator = () => (
             options={{
                 tabBarIcon: ({ focused }) => (
                     <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/25/25694.png' }} />
-                        <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>HOME</Text>
+                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1946/1946488.png' }} />
+                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>HOME</Text> */}
+                    </>
+                )
+            }} />
+        <Tab.Screen name="Favourites"
+            component={Favourites}
+            options={{
+                tabBarIcon: ({ focused }) => (
+                    <>
+                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/126/126471.png' }} />
+                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>Favourites</Text> */}
+                    </>
+                )
+            }} />
+        <Tab.Screen name="MyCart"
+            component={MyCart}
+            options={{
+                tabBarIcon: ({ focused }) => (
+                    <>
+                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
+                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>My Cart</Text> */}
                     </>
                 )
             }} />
@@ -70,23 +94,21 @@ const TabNavigator = () => (
                 tabBarIcon: ({ focused }) => (
                     <>
                         <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/7322/7322265.png' }} />
-                        <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ORDERS</Text>
+                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ORDERS</Text> */}
                     </>
                 )
             }} />
-        
-        
-            <Tab.Screen name="Add"
-                component={AddItem}
-                options={{
-                    tabBarIcon: ({ focused }) => (
-                        <>
-                            <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
-                            <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text>
-                        </>
-                    )
-                }} />
-        
+        <Tab.Screen name="Add"
+            component={AddItem}
+            options={{
+                tabBarIcon: ({ focused }) => (
+                    <>
+                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/992/992651.png' }} />
+                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text> */}
+                    </>
+                )
+            }} />
+
     </Tab.Navigator>
 )
 

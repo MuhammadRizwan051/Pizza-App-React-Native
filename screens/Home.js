@@ -22,7 +22,6 @@ const Home = ({ navigation }) => {
     })
   }
 
-
   useEffect(() => {
     getData()
   }, [])
@@ -54,16 +53,16 @@ const Home = ({ navigation }) => {
         </View>
           :
           <ScrollView>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 10 }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 5 }}>
               {list.length > 0 ? list.map((e, i) => (
-                <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
+                <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 5, marginTop: 20 }} key={i}>
                   <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
                     <View style={{ alignItems: 'center' }}>
-                      <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 10, borderTopLeftRadius: 10 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
+                      <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 7, borderTopLeftRadius: 7 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
                     </View>
                     <View style={{ paddingVertical: 10 }}>
-                      <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 18, color: 'black' }}>{e.name}</Text>
-                      <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
+                      <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16, color: 'black' }}>{e.name.toUpperCase()}</Text>
+                      <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
