@@ -48,7 +48,7 @@ function AppNavigation() {
             }
             else {
                 // User is signed out
-                console.log(first)("No user is Login ..")
+                console.log("No user is Login ..")
             }
         })
     }

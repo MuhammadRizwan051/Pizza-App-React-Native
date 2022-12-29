@@ -41,11 +41,11 @@ const Home = ({ navigation }) => {
     try {
       await AsyncStorage.removeItem('LoginKey');
       console.log('LoginKey remove')
-      return true;
+      // return true;
     }
     catch (exception) {
       console.log('LoginKey not remove')
-      return false;
+      // return false;
     }
   }
 
