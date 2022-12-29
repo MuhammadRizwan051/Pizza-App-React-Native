@@ -15,6 +15,7 @@ function Login({ navigation }) {
   }
   const [model, setModel] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false)
+  const [dataStore, setDataStore] = useState(false)
 
   let category;
   let loginuser = () => {
@@ -32,6 +33,7 @@ function Login({ navigation }) {
               await AsyncStorage.setItem('LoginKey', jsonValue)
               setModel(initialData)
               setIsLoading(false)
+              setDataStore(true)
               navigation.navigate('HomeScreen')
               console.log('Data stored', jsonValue)
             } catch (e) {
@@ -65,7 +67,7 @@ function Login({ navigation }) {
 
             <View style={{ width: '40%', marginTop: 50, justifyContent: 'center' }}>
               <TouchableOpacity onPress={loginuser} style={[style.bgDark, { paddingVertical: 8, borderRadius: 10 }]}>
-                <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{isLoading ? <ActivityIndicator size='large' color="white" /> : 'LOGIN'}</Text>
+                <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{isLoading ? <ActivityIndicator size={30} color="white" /> : 'LOGIN'}</Text>
               </TouchableOpacity>
             </View>
             <View style={{ marginTop: 20, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>

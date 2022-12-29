@@ -4,6 +4,7 @@ import style from '../styling'
 import database from '@react-native-firebase/database'
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
 
@@ -36,12 +37,24 @@ const Home = ({ navigation }) => {
     getData()
   }, [])
 
+  let removeAsyncData = async () => {
+    try {
+      await AsyncStorage.removeItem('LoginKey');
+      console.log('LoginKey remove')
+      return true;
+    }
+    catch (exception) {
+      console.log('LoginKey not remove')
+      return false;
+    }
+  }
 
   let logoutUser = () => {
     auth()
       .signOut()
       .then(() => {
         console.log('User signed out!')
+        removeAsyncData()
         navigation.navigate('Login')
       })
       .catch((err) => {
@@ -58,18 +71,16 @@ const Home = ({ navigation }) => {
             <Icon name='logout' size={25} color='white' />
           </TouchableOpacity>
         </View>
-        <View style={{ backgroundColor: 'white', height: 200, marginVertical: 15, paddingHorizontal: 10 }}>
-          <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={{ uri: 'https://t3.ftcdn.net/jpg/02/92/08/20/240_F_292082032_oxXr6P0OARzxfrjHM5R8QJ4BchsBfxFK.jpg' }} />
-        </View>
-        {/* Whatsapp Button */}
-        <TouchableOpacity style={{ zIndex:1, position: 'absolute', bottom: 30, right: 20 }}>
-          <Image resizeMode='cover' style={{ height: 50, width: 50 }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3670/3670051.png' }} />
-        </TouchableOpacity>
-        {dataLoader ? <View style={{ height: '100%', justifyContent: 'center' }}>
+
+        {dataLoader ? <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator size={60} color='red' />
         </View>
           :
-          <View style={{ height: '64%' }}>
+          <View style={{ height: '92%' }}>
+            <View style={{ backgroundColor: 'white', height: 200, marginVertical: 15, paddingHorizontal: 10 }}>
+              <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={{ uri: 'https://t3.ftcdn.net/jpg/02/92/08/20/240_F_292082032_oxXr6P0OARzxfrjHM5R8QJ4BchsBfxFK.jpg' }} />
+            </View>
+
             <ScrollView>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 5 }}>
                 {list.length > 0 ? list.map((e, i) => (
@@ -95,6 +106,11 @@ const Home = ({ navigation }) => {
                 }
               </View>
             </ScrollView>
+
+            {/* Whatsapp Button */}
+            <TouchableOpacity style={{ zIndex: 1, position: 'absolute', bottom: 30, right: 20 }}>
+              <Image resizeMode='cover' style={{ height: 50, width: 50 }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3670/3670051.png' }} />
+            </TouchableOpacity>
           </View>
         }
       </View>

@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import Splash from '../screens/Splash';
 import Favourites from '../screens/Favourites';
 import MyCart from '../screens/MyCart';
+import auth from '@react-native-firebase/auth'
 import database from '@react-native-firebase/database'
 
 
@@ -20,35 +21,40 @@ import database from '@react-native-firebase/database'
 let obj;
 let getCategory
 let listItems;
+
 function AppNavigation() {
 
-    let getData = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem('LoginKey')
-            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
-            if (data) {
-                obj = jsonValue
-                console.log('Data Receive', obj)
+    let checkUser = () => {
+        auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                // const uid = user.uid
+                // resolve(uid)
+                let getData = async () => {
+                    try {
+                        const jsonValue = await AsyncStorage.getItem('LoginKey')
+                        const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+                        if (data) {
+                            obj = jsonValue
+                            console.log('Data Receive', obj)
+                        }
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }
+                getData()
+                console.log(first)('Check User', user.email)
+                // console.log('Check User', user.email)
             }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    getData()
-
-    let [list, setList] = useState([])
-    let getCartData = () => {
-        database().ref('addToCart').on('value', dt => {
-            if (dt.exists()) {
-                let li = Object.values(dt.val())
-                setList([...li])
-                listItems = list.length
-                console.log(listItems)
+            else {
+                // User is signed out
+                console.log(first)("No user is Login ..")
             }
         })
     }
+
     useEffect(() => {
-        getCartData()
+        checkUser()
     }, [])
 
     return (
@@ -97,7 +103,7 @@ const TabNavigator = () => (
         <Tab.Screen name="MyCart"
             component={MyCart}
             options={{
-                tabBarBadge: listItems,
+                // tabBarBadge: listItems,
                 tabBarIcon: ({ focused }) => (
                     <>
                         <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
