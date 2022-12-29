@@ -67,9 +67,13 @@ const ItemDetails = ({ navigation, route }) => {
       {/* Add To Cart */}
       <View style={{ borderTopWidth: 1, borderColor: 'grey', backgroundColor: 'white', paddingVertical: 10, flexDirection: 'row', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
         <View style={{ height: '100%', width: '50%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20 }}>
-          <Icon onPress={subtract} name='remove-circle-outline' size={30} color='#367E18' />
+          <TouchableOpacity onPress={subtract}>
+            <Icon name='remove-circle-outline' size={30} color='#367E18' />
+          </TouchableOpacity>
           <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{count}</Text>
-          <Icon onPress={add} name='add-circle-outline' size={30} color='#367E18' />
+          <TouchableOpacity onPress={add}>
+            <Icon name='add-circle-outline' size={30} color='#367E18' />
+          </TouchableOpacity>
         </View>
         <View style={{ height: '100%', width: '50%', paddingHorizontal: 20 }}>
           <SMTouchableOpacity onPress={addToCart} value={loader ? <ActivityIndicator size='large' color='white' /> : 'Add To Cart'}

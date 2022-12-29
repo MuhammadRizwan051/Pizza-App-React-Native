@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Image, ScrollViewBase, ScrollView, TouchableOpacity } from 'react-native'
 import style from '../styling'
 import database from '@react-native-firebase/database'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+
 
 const MyCart = () => {
     let [list, setList] = useState([])
@@ -40,21 +42,19 @@ const MyCart = () => {
                                 <Text style={{ fontWeight: 'bold', color: 'black' }}>{e.quantity} x </Text>
                                 <Text style={{ fontWeight: 'bold', color: 'black' }}>{e.name}</Text>
                             </View>
-                            <View style={{ alignItems: 'flex-end', width: '15%' }}>
-                                <Text>{e.price}</Text>
+                            <View style={{ alignItems: 'flex-end', marginLeft: '9.8%', backgroundColor:'#FF5858', borderRadius:5}}>
+                                <Icon name='add' size={20} color='white' />
                             </View>
-                            {/* <Text>{e.detail}</Text>
-                        <Text>{e.specialInstruction}</Text> */}
-                            {/* <Image style={{ height: 200, width: 200 }} source={{ uri: e.src }} /> */}
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, width: '30%' }}>
-                            <TouchableOpacity>
-                                <Text style={{ textDecorationLine: 'underline', color: 'royalblue' }}>Update</Text>
-                            </TouchableOpacity>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, width: '100%' }}>
                             <TouchableOpacity onPress={() => remove(e.id)}>
                                 <Text style={{ textDecorationLine: 'underline', color: 'royalblue' }}>Remove</Text>
                             </TouchableOpacity>
+                            <View style={{backgroundColor:'#FF5858', borderRadius:5}}>
+                                <Icon name='remove' size={20} color='white' />
+                            </View>
                         </View>
+
                     </View>
                 ))}
             </ScrollView>
