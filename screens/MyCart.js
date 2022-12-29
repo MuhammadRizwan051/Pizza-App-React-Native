@@ -26,7 +26,8 @@ const MyCart = () => {
     }
 
     let remove = async (e) => {
-        await database().ref(`addToCart/${e}`).remove();
+        await database().ref(`addToCart/${e.id}`).remove()
+        console.log(e)
     }
 
     let add = (e) => {
@@ -39,7 +40,6 @@ const MyCart = () => {
     let subtract = (e) => {
         console.log('subtract', e)
     }
-
 
     return (
         <>
@@ -58,9 +58,9 @@ const MyCart = () => {
                                     <Text style={{ fontWeight: 'bold', color: 'black' }}>{e.quantity} x </Text>
                                     <Text style={{ fontWeight: 'bold', color: 'black' }}>{e.name}</Text>
                                 </View>
-                                <View style={{ cursor: 'pointer' }}>
-                                    <Text onPress={() => remove(e)} style={{ textDecorationLine: 'underline', color: 'royalblue' }}>Remove</Text>
-                                </View>
+                                <TouchableOpacity onPress={() => remove(e)}>
+                                    <Text style={{ textDecorationLine: 'underline', color: 'royalblue' }}>Remove</Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ width: '10%', justifyContent: 'space-around', alignItems: 'center' }}>
                                 <Icon onPress={() => add(e)} name='add' size={16} color='white' style={{ padding: 1, backgroundColor: '#DC3535', borderRadius: 6 }} />

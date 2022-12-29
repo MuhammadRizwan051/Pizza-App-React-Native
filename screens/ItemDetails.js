@@ -63,7 +63,12 @@ const ItemDetails = ({ navigation, route }) => {
         </View>
       </ScrollView>
 
+      {/* Whatsapp Button */}
+      <TouchableOpacity style={{ position: 'absolute', bottom: 90, right: 20 }}>
+        <Image resizeMode='cover' style={{ height: 50, width: 50 }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3670/3670051.png' }} />
+      </TouchableOpacity>
 
+      
       {/* Add To Cart */}
       <View style={{ borderTopWidth: 1, borderColor: 'grey', backgroundColor: 'white', paddingVertical: 10, flexDirection: 'row', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
         <View style={{ height: '100%', width: '50%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20 }}>
@@ -80,12 +85,6 @@ const ItemDetails = ({ navigation, route }) => {
             touchableStyle={{ borderRadius: 5, backgroundColor: '#367E18', width: '100%', paddingVertical: 10 }}
             textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20 }]} />
         </View>
-
-
-        {/* Whatsapp Button */}
-        <TouchableOpacity style={{ position: 'absolute', bottom: 90, right: 20 }}>
-          <Image resizeMode='cover' style={{ height: 50, width: 50 }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3670/3670051.png' }} />
-        </TouchableOpacity>
       </View>
     </>
   )
