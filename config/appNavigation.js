@@ -43,7 +43,7 @@ function AppNavigation() {
                     }
                 }
                 getData()
-                console.log(first)('Check User', user.email)
+                console.log('Check User', user.email)
                 // console.log('Check User', user.email)
             }
             else {
