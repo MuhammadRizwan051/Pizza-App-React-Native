@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 const Splash = ({ navigation }) => {
     let change = () => {
         setTimeout(() => {
-            navigation.navigate('Login')
+            navigation.navigate('HomeScreen')
         }, 3000);
     }
     useEffect(() => {

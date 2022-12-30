@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native'
 import style from '../styling'
 import database from '@react-native-firebase/database'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
@@ -54,19 +54,21 @@ const MyCart = ({ navigation }) => {
 
     let checkout = async () => {
         setCheckoutLoader(true)
-        list.unshift(database().ref('orders/').push().key)
+        // list.unshift(database().ref('orders/').push().key)
 
-        await database().ref(`orders/${list[0]}`).set(list)
-            .then(async res => {
-                await database().ref(`addToCart/`).remove()
-                navigation.navigate('Confirm Order')
-                ToastAndroid.show('Item created Successfully', ToastAndroid.LONG)
-                setCheckoutLoader(false)
-            })
-            .catch(err => {
-                console.log(err)
-                setCheckoutLoader(false)
-            })
+        let key = database().ref('orders/').push().key
+        await database().ref(`orders/${key}`).set(list)
+        // .try(async res => {
+        await database().ref(`addToCart/`).remove()
+        setList([])
+        navigation.navigate('Confirm Order')
+        ToastAndroid.show('Ordered Successfully', ToastAndroid.LONG)
+        setCheckoutLoader(false)
+        // })
+        // .catch(err => {
+        // console.log(err)
+        // setCheckoutLoader(false)
+        // })
     }
 
     return (

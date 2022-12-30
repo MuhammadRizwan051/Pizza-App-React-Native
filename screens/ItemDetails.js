@@ -24,12 +24,12 @@ const ItemDetails = ({ navigation, route }) => {
       .then(res => {
         setLoader(false)
         ToastAndroid.show('Item add to Cart', ToastAndroid.LONG)
+        setModel(obj)
         navigation.navigate('Home')
-        setModel({})
       })
       .catch(err => {
         setLoader(false)
-        setModel({})
+        setModel(obj)
         console.log(err)
       })
   }
