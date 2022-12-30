@@ -9,29 +9,31 @@ import SMTextInput from '../component/SMTextInput'
 const ItemDetails = ({ navigation, route }) => {
   let [loader, setLoader] = useState(false)
   let [count, setCount] = useState(1)
-  const [modalVisible, setModalVisible] = useState(false);
   let [instruction, setinstruction] = useState('')
   let obj = route.params
+  let [model, setModel] = useState(obj)
 
   let addToCart = () => {
     setLoader(true)
-    obj.src = 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg'
-    obj.specialInstruction = instruction
-    obj.quantity = count
-    obj.id = database().ref('addToCart/').push().key
-    database().ref(`addToCart/${obj.id}`).set(obj)
+
+    model.src = 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg'
+    model.specialInstruction = instruction
+    model.quantity = count
+    model.id = database().ref('addToCart/').push().key
+    database().ref(`addToCart/${model.id}`).set(model)
       .then(res => {
         setLoader(false)
         ToastAndroid.show('Item add to Cart', ToastAndroid.LONG)
         navigation.navigate('Home')
-        obj = {}
+        setModel({})
       })
       .catch(err => {
         setLoader(false)
-        obj = {}
+        setModel({})
         console.log(err)
       })
   }
+
   let add = () => {
     setCount(count + 1)
   }
@@ -45,14 +47,14 @@ const ItemDetails = ({ navigation, route }) => {
     <>
       <ScrollView style={{ marginBottom: 100, }}>
         <View style={{ marginTop: 20, paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 28, color: 'black', textAlign: 'center', fontFamily: 'lucida-sans' }}>{obj.name.toUpperCase()}</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 28, color: 'black', textAlign: 'center', fontFamily: 'lucida-sans' }}>{model.name.toUpperCase()}</Text>
           <TouchableOpacity>
             <Icon name='favorite-border' size={30} color='#DC3535' />
           </TouchableOpacity>
         </View>
         <View style={{ paddingHorizontal: 20 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', marginTop: 5 }}>Rs {obj.price}</Text>
-          <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20, lineHeight: 23 }}>{obj.detail}</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', marginTop: 5 }}>Rs {model.price}</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20, lineHeight: 23 }}>{model.detail}</Text>
         </View>
         <View style={{ borderWidth: 1, width: '100%', height: 400, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
           <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />

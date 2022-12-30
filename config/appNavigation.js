@@ -2,59 +2,64 @@ import Home from '../screens/Home';
 import Login from '../screens/Login';
 import SignUp from '../screens/Signup';
 import Orders from '../screens/Orders';
-import { NavigationContainer } from '@react-navigation/native';
-import { Image, Text } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddItem from '../screens/AddItem';
-import ItemDetails from '../screens/ItemDetails';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
 import Splash from '../screens/Splash';
 import Favourites from '../screens/Favourites';
 import MyCart from '../screens/MyCart';
+import ItemDetails from '../screens/ItemDetails';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth'
-import database from '@react-native-firebase/database'
+import ConfirmOrder from '../screens/ConfirmOrder';
 
 
 // let category;
-let obj;
 let getCategory
 let listItems;
-
+let obj;
 function AppNavigation() {
+    let [obj, setObj] = useState()
+    let [category, setCategory] = useState()
 
-    let checkUser = () => {
+    let checkUser = async () => {
         auth().onAuthStateChanged((user) => {
             if (user) {
                 // User is signed in
                 // const uid = user.uid
                 // resolve(uid)
-                let getData = async () => {
-                    try {
-                        const jsonValue = await AsyncStorage.getItem('LoginKey')
-                        const data = jsonValue !== null ? JSON.parse(jsonValue) : null
-                        if (data) {
-                            obj = jsonValue
-                            console.log('Data Receive', obj)
-                        }
-                    } catch (e) {
-                        console.log(e)
-                    }
-                }
-                getData()
                 console.log('Check User', user.email)
                 // console.log('Check User', user.email)
             }
-            else {
-                // User is signed out
-                console.log("No user is Login ..")
-            }
+            // else {
+            //     // User is signed out
+            //     console.log("No user is Login ..")
+            // }
         })
     }
 
+    let getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('LoginKey')
+            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+            if (data) {
+                setObj(data)
+                setCategory(obj.category)
+                getCategory = category
+                console.log('Data Receive inner', obj)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    console.log('Data Receive outer', obj)
+
+
     useEffect(() => {
-        checkUser()
+        checkUser(getData())
     }, [])
 
     return (
@@ -71,6 +76,7 @@ const StackNavigator = () => (
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name='Item Details' component={ItemDetails} />
+        <Stack.Screen name='Confirm Order' component={ConfirmOrder} options={{ headerShown: false }} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 )

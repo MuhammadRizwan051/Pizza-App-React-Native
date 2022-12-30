@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
 
   let removeAsyncData = async () => {
     try {
-      await AsyncStorage.removeItem('LoginKey');
+      const removeVal =  await AsyncStorage.removeItem('LoginKey');
       console.log('LoginKey remove')
       // return true;
     }
