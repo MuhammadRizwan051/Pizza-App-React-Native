@@ -67,7 +67,7 @@ function Login({ navigation }) {
 
             <View style={{ width: '40%', marginTop: 50, justifyContent: 'center' }}>
               <TouchableOpacity onPress={loginuser} style={[style.bgDark, { paddingVertical: 8, borderRadius: 10 }]}>
-                <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{isLoading ? <ActivityIndicator size={30} color="white" /> : 'LOGIN'}</Text>
+                <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{isLoading ? <ActivityIndicator size={25} color="white" /> : 'LOGIN'}</Text>
               </TouchableOpacity>
             </View>
             <View style={{ marginTop: 20, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>

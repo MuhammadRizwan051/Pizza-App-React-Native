@@ -42,6 +42,7 @@ function AppNavigation() {
     }
 
     let getData = async () => {
+        checkUser()
         try {
             const jsonValue = await AsyncStorage.getItem('LoginKey')
             const data = jsonValue !== null ? JSON.parse(jsonValue) : null
@@ -49,7 +50,7 @@ function AppNavigation() {
                 setObj(data)
                 setCategory(obj.category)
                 getCategory = category
-                console.log('Data Receive inner', obj)
+                // console.log('Data Receive inner', obj)
             }
         } catch (e) {
             console.log(e)
@@ -59,7 +60,8 @@ function AppNavigation() {
 
 
     useEffect(() => {
-        checkUser(getData())
+        // checkUser()
+        getData()
     }, [])
 
     return (

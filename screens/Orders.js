@@ -5,20 +5,22 @@ import database from '@react-native-firebase/database'
 
 
 const Orders = () => {
-  let [list, setList] = useState([])
+  let [list, setList] = useState()
   let [dataLoader, setDataLoader] = useState(false)
 
   let getData = () => {
     setDataLoader(true)
-    database().ref('addToCart').on('value', dt => {
+    database().ref('orders').on('value', dt => {
       setDataLoader(false)
       if (dt.exists()) {
         // setDataLoader(false)
+        console.log('dtVal', dt.val())
         let li = Object.values(dt.val())
-        setList([...li])
+        setList(...li)
       }
     })
   }
+  console.log('list', list)
 
   useEffect(() => {
     getData()
@@ -34,7 +36,7 @@ const Orders = () => {
           <ActivityIndicator size={60} color='red' />
         </View>
           :
-          (list.length > 0 ?
+          (list && list.length > 0 ?
             <ScrollView>
               <View style={{ flexWrap: 'wrap', paddingHorizontal: 10, marginBottom: 80 }} >
                 {list.map((e, i) => (

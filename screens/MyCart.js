@@ -6,10 +6,10 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 
 
-const MyCart = () => {
+const MyCart = ({ navigation }) => {
     let [list, setList] = useState([])
     let [dataLoader, setDataLoader] = useState(false)
-    let [loader, setLoader] = useState(false)
+    let [checkoutLoader, setCheckoutLoader] = useState(false)
     let [count, setCount] = useState()
 
     let getData = () => {
@@ -52,17 +52,20 @@ const MyCart = () => {
         console.log()
     }
 
-    let checkout = () => {
-        list.unshift(database().ref('addItem/').push().key)
-        database().ref(`orders/${list[0]}`).set(list)
-            .then(res => {
-                setIsLoading(false)
-                setModel(initialData)
+    let checkout = async () => {
+        setCheckoutLoader(true)
+        list.unshift(database().ref('orders/').push().key)
+
+        await database().ref(`orders/${list[0]}`).set(list)
+            .then(async res => {
+                await database().ref(`addToCart/`).remove()
+                navigation.navigate('Confirm Order')
                 ToastAndroid.show('Item created Successfully', ToastAndroid.LONG)
+                setCheckoutLoader(false)
             })
             .catch(err => {
-                setIsLoading(false)
                 console.log(err)
+                setCheckoutLoader(false)
             })
     }
 
@@ -111,7 +114,7 @@ const MyCart = () => {
                             </ScrollView>
                         </View>
                         <View style={{ width: '100%', paddingHorizontal: 20, position: 'absolute', bottom: 10 }}>
-                            <SMTouchableOpacity onPress={checkout} value={loader ? <ActivityIndicator size='large' color='white' /> : 'Checkout'}
+                            <SMTouchableOpacity onPress={checkout} value={checkoutLoader ? <ActivityIndicator size='large' color='white' /> : 'Checkout'}
                                 touchableStyle={{ borderRadius: 5, backgroundColor: '#367E18', width: '100%', paddingVertical: 10 }}
                                 textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20 }]} />
                         </View>
