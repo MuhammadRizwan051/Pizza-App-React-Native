@@ -56,8 +56,8 @@ const ItemDetails = ({ navigation, route }) => {
           <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', marginTop: 5 }}>Rs {model.price}</Text>
           <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20, lineHeight: 23 }}>{model.detail}</Text>
         </View>
-        <View style={{ borderWidth: 1, width: '100%', height: 400, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-          <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
+        <View style={{ width: '100%', height: 300, justifyContent: 'center', alignItems: 'center' }}>
+          <Image resizeMode='contain' style={{ height: 200, width: '100%' }} source={{ uri: model.src }} />
         </View>
         <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
           <Text style={{ marginBottom: 8, fontWeight: 'bold', fontSize: 20, color: 'black', fontFamily: 'lucida-sans' }}>Special Instructions</Text>
