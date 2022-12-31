@@ -95,10 +95,10 @@ const AddItem = () => {
               <Icon name='tab' size={20} color='black' />
             </TouchableOpacity>
           </View>
-          <Image source={{ uri: cameraPhoto }} resizeMode='contain' style={{ height: 150, width: '100%' }} />
+          <Image source={{ uri: cameraPhoto }} resizeMode='stretch' style={{ height: 200, width: '100%' }} />
           {/* <Image source={cameraPhoto} style={{ height: 100, width: 150 }} /> */}
         </View>
-        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={30} /> : 'Add'} touchableStyle={[style.bgDark, { width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }]} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle: 'italic' }]} />
+        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={30} /> : 'Add'} touchableStyle={[style.bgDark, { width: '80%', marginTop: 15, borderRadius: 20, paddingVertical: 8 }]} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle: 'italic' }]} />
       </View>
     </View >
   )
