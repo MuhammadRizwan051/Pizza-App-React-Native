@@ -1,11 +1,22 @@
-import { View, Text, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, ToastAndroid, ActivityIndicator, TouchableOpacity, } from 'react-native'
 import React, { useState } from 'react'
 import SMTextInput from '../component/SMTextInput'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import style from '../styling'
 import database from '@react-native-firebase/database'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+
 
 const AddItem = () => {
+
+  let camera = () => {
+    launchCamera({
+      mediaType: 'photo'
+    }, (res) => {
+      console.log(res)
+    });
+  }
 
   const initialData = {
     name: '',
@@ -40,8 +51,14 @@ const AddItem = () => {
           <SMTextInput value={model.name} placeholder='Name' style={[styles.input]} onChangeText={e => setModel({ ...model, name: e })} />
           <SMTextInput value={model.detail} placeholder='Detail' style={[styles.input]} onChangeText={e => setModel({ ...model, detail: e })} />
           <SMTextInput keyboardType='number-pad' value={model.price} placeholder='Price' style={[styles.input]} onChangeText={e => setModel({ ...model, price: e })} />
+          <TouchableOpacity onPress={camera} style={{
+            borderBottomWidth: 1, paddingBottom: 5, marginTop: 15, flexDirection: 'row', justifyContent: 'space-between'
+          }}>
+            <Text>Image</Text>
+            <Icon name='photo-camera' size={20} color='black' />
+          </TouchableOpacity>
         </View>
-        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={30} /> : 'Add'} touchableStyle={[style.bgDark, { width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }]} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle:'italic' }]} />
+        <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={30} /> : 'Add'} touchableStyle={[style.bgDark, { width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }]} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle: 'italic' }]} />
       </View>
     </View>
   )

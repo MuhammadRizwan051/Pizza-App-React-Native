@@ -10,7 +10,7 @@ import ItemDetails from '../screens/ItemDetails';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, Text } from 'react-native';
+import { Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth'
@@ -18,10 +18,10 @@ import ConfirmOrder from '../screens/ConfirmOrder';
 
 
 // let category;
-let getCategory
 let listItems;
 let obj;
 function AppNavigation() {
+    // const [category,setCategory] = useState('')
     let [obj, setObj] = useState()
     let [category, setCategory] = useState()
 
@@ -40,6 +40,7 @@ function AppNavigation() {
             // }
         })
     }
+    console.log('category======>',category)
 
     let getData = async () => {
         checkUser()
@@ -50,13 +51,12 @@ function AppNavigation() {
                 setObj(data)
                 setCategory(obj.category)
                 getCategory = category
-                // console.log('Data Receive inner', obj)
             }
         } catch (e) {
             console.log(e)
         }
     }
-    console.log('Data Receive outer', obj)
+    console.log('Data Receive', obj)
 
 
     useEffect(() => {
@@ -85,10 +85,11 @@ const StackNavigator = () => (
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => (
+    // {category==""}
     <Tab.Navigator
         screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
     >
-        <Tab.Screen name="Home"
+         <Tab.Screen name="Home"
             component={Home}
             options={{
                 tabBarIcon: ({ focused }) => (
