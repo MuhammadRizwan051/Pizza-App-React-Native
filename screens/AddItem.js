@@ -49,6 +49,7 @@ const AddItem = () => {
       setCameraPhoto(res.assets[0].uri)
       console.log(res)
     });
+  }
 
   let openGallery = () => {
     launchImageLibrary(options, (res) => {
@@ -56,19 +57,19 @@ const AddItem = () => {
       console.log(res)
     })
   }
-    // setCameraPhoto(res.assets[0].uri)
-    // console.log(res)
-    // const granted = await PermissionsAndroid.request(
-    //   PermissionsAndroid.PERMISSIONS.CAMERA,
-    // )
-    // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //   const result = await launchCamera(options, res => {
-    //     console.log(res)
-    //   })
-    //   setCameraPhoto(result.assets[0].uri)
-    // }
-  }
 
+
+  // setCameraPhoto(res.assets[0].uri)
+  // console.log(res)
+  // const granted = await PermissionsAndroid.request(
+  //   PermissionsAndroid.PERMISSIONS.CAMERA,
+  // )
+  // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  //   const result = await launchCamera(options, res => {
+  //     console.log(res)
+  //   })
+  //   setCameraPhoto(result.assets[0].uri)
+  // }
 
   // let opencamera = async () => {
   //   const granted = await PermissionsAndroid.request(
