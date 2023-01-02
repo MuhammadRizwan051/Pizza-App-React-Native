@@ -17,17 +17,37 @@ import auth from '@react-native-firebase/auth'
 import ConfirmOrder from '../screens/ConfirmOrder';
 
 
-// let category;
-let listItems;
-let obj;
+// let val;
+// let val ='admin'
+
 function AppNavigation() {
     // const [category,setCategory] = useState('')
     let [obj, setObj] = useState()
     let [category, setCategory] = useState()
 
+    let getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('LoginKey')
+            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+            setTimeout(() => {
+                if (data) {
+                    console.log('data', data)
+                    setObj(data)
+                    // setCategory(obj.category)
+                    val = category
+                    console.log('Data Receive Inner', obj)
+                }
+            }, 5000);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     let checkUser = async () => {
         auth().onAuthStateChanged((user) => {
+            // getData()
             if (user) {
+                console.log('Data Receive Outer', obj)
                 // User is signed in
                 // const uid = user.uid
                 // resolve(uid)
@@ -40,27 +60,13 @@ function AppNavigation() {
             // }
         })
     }
-    console.log('category======>',category)
+    // console.log('category======>', category)
 
-    let getData = async () => {
-        checkUser()
-        try {
-            const jsonValue = await AsyncStorage.getItem('LoginKey')
-            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
-            if (data) {
-                setObj(data)
-                setCategory(obj.category)
-                getCategory = category
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    console.log('Data Receive', obj)
+
 
 
     useEffect(() => {
-        // checkUser()
+        checkUser()
         getData()
     }, [])
 
@@ -89,7 +95,7 @@ const TabNavigator = () => (
     <Tab.Navigator
         screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
     >
-         <Tab.Screen name="Home"
+        <Tab.Screen name="Home"
             component={Home}
             options={{
                 tabBarIcon: ({ focused }) => (

@@ -45,45 +45,43 @@ const AddItem = () => {
 
   let options = {
     saveToPhotos: true,
-    mediaType: 'photo'
+    mediaType: 'photo',
+    // includeBase64: true,
+    cameraType: 'front'
   }
 
   let opencamera = async () => {
-    await launchCamera(options, (res) => {
+    let res = await launchCamera(options)
+    try {
       setPhoto(res.assets[0].uri)
       console.log(res)
-    });
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
-
-  let openGallery = () => {
-    launchImageLibrary(options, (res) => {
-      res.assets[0].uri && setPhoto(res.assets[0].uri)
-      console.log(res)
-    })
-  }
-
-
-  // setPhoto(res.assets[0].uri)
-  // console.log(res)
-  // const granted = await PermissionsAndroid.request(
-  //   PermissionsAndroid.PERMISSIONS.CAMERA,
-  // )
-  // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //   const result = await launchCamera(options, res => {
-  //     console.log(res)
-  //   })
-  //   setPhoto(result.assets[0].uri)
-  // }
 
   // let opencamera = async () => {
   //   const granted = await PermissionsAndroid.request(
-  //     PermissionsAndroid.PERMISSIONS.CAMERA,
+  //     PermissionsAndroid.PERMISSIONS.CAMERA
   //   )
   //   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
   //     const result = await launchCamera(options)
   //     setPhoto(result.assets[0].uri)
   //   }
   // }
+
+  let openGallery = async () => {
+    await launchImageLibrary(options, (res) => {
+      try {
+        setPhoto(res.assets[0].uri)
+        console.log(res)
+      }
+      catch (e) {
+        console.log(e)
+      }
+    })
+  }
 
   return (
     <View>
@@ -98,7 +96,8 @@ const AddItem = () => {
             <SMTextInput keyboardType='number-pad' value={model.price} placeholder='Price' style={[styles.input]} onChangeText={e => setModel({ ...model, price: e })} />
 
             <View style={{ marginTop: 30 }}>
-              <Text style={{ color: '#DC3535' }}>Upload Item Image</Text>
+              <Text style={{ color: '#DC3535' }}>Upload Image or paste link here</Text>
+              <SMTextInput value={model.src} placeholder='Link of Image' style={[styles.input]} onChangeText={e => { setModel({ ...model, src: e }); setPhoto(e); }} />
               <View style={{ borderWidth: 1, borderColor: '#DC3535', marginTop: 5 }}>
                 <Image source={{ uri: photo }} resizeMode='stretch' style={{ height: 200, width: '100%' }} />
                 {/* <Image source={photo} style={{ height: 100, width: 150 }} /> */}

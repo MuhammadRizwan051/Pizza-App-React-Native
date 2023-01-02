@@ -5,34 +5,78 @@ import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import database from '@react-native-firebase/database'
 import SMTextInput from '../component/SMTextInput'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ItemDetails = ({ navigation, route }) => {
+
+  let obj = route.params
+  // console.log(obj)
+
   let [loader, setLoader] = useState(false)
   let [count, setCount] = useState(1)
   let [instruction, setinstruction] = useState('')
-  let obj = route.params
   let [model, setModel] = useState(obj)
+
+  let [arr, setArr] = useState([])
+  // let addToCart = () => {
+  //   setLoader(true)
+  //   console.log('model', model)
+
+  //   setArr([...arr, model])
+  //   const multiSet = [
+  //     ["First", JSON.stringify(model)],
+  //     // ["@MyApp_USER_2", JSON.stringify(USER_2)]
+  //   ]
+  //   const storeData = async () => {
+  //     try {
+  //       const jsonValue = JSON.stringify(arr)
+  //       await AsyncStorage.setItem('CartItem', jsonValue)
+  //       setModel(obj)
+  //       ToastAndroid.show('Add to Cart', ToastAndroid.SHORT)
+  //       setLoader(false)
+  //       navigation.navigate('HomeScreen')
+  //       console.log('Data stored', jsonValue)
+  //     }
+  //     catch (e) {
+  //       setModel(obj)
+  //       setLoader(false)
+  //       console.log('Data not stored', e)  // saving error
+  //     }
+  //   }
+  //   storeData()
+  // }
+  // console.log('arr', arr)
+
+
+
 
   let addToCart = () => {
     setLoader(true)
-
-    model.src = 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg'
-    model.specialInstruction = instruction
     model.quantity = count
+    model.specialInstruction = instruction
     model.id = database().ref('addToCart/').push().key
+    
     database().ref(`addToCart/${model.id}`).set(model)
       .then(res => {
         setLoader(false)
-        ToastAndroid.show('Item add to Cart', ToastAndroid.LONG)
+        ToastAndroid.show('Item added to Cart', ToastAndroid.LONG)
         setModel(obj)
+        setinstruction('')
+        setCount(1)
         navigation.navigate('Home')
       })
       .catch(err => {
         setLoader(false)
         setModel(obj)
+        setinstruction('')
+        setCount(1)
         console.log(err)
       })
   }
+
+
+
+
 
   let add = () => {
     setCount(count + 1)
@@ -77,7 +121,7 @@ const ItemDetails = ({ navigation, route }) => {
           <TouchableOpacity onPress={subtract}>
             <Icon name='remove-circle-outline' size={30} color='#367E18' />
           </TouchableOpacity>
-          <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{count}</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }} onChangeText={e => setCount(e)}>{count}</Text>
           <TouchableOpacity onPress={add}>
             <Icon name='add-circle-outline' size={30} color='#367E18' />
           </TouchableOpacity>

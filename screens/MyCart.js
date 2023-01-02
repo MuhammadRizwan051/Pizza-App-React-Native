@@ -93,8 +93,8 @@ const MyCart = ({ navigation }) => {
                                 {list.map((e, i) => (
                                     <View key={i} style={{ borderColor: 'grey', paddingVertical: 7, marginHorizontal: 15 }} >
                                         <View style={{ borderWidth: 1, borderColor: 'grey', borderRadius: 10, backgroundColor: 'white', paddingVertical: 5, width: '100%', flexDirection: 'row' }}>
-                                            <View style={{ width: '20%' }}>
-                                                <Image source={{ uri: e.src }} resizeMode='contain' style={{ height: 50, width: '100%' }} />
+                                            <View style={{ width: '20%', alignItems:'center' }}>
+                                                <Image source={{ uri: e.src }} resizeMode='contain' style={{ height: 40, width: 50 }} />
                                             </View>
                                             <View style={{ width: '70%', justifyContent: 'center', flexDirection: 'column' }}>
                                                 <View style={{ flexDirection: 'row', width: '85%' }}>
