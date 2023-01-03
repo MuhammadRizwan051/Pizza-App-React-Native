@@ -92,7 +92,7 @@ const Home = ({ navigation }) => {
                       </View>
                       <View style={{ paddingVertical: 10 }}>
                         <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16, color: 'black' }}>{e.name.toUpperCase()}</Text>
-                        <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
+                        <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>Rs {e.price}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>

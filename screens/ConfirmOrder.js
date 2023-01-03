@@ -4,6 +4,9 @@ import style from '../styling'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 
 const ConfirmOrder = ({navigation}) => {
+  let confirm = () => {
+    navigation.navigate('Home')
+  }
   return (
     <>
       <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -14,8 +17,8 @@ const ConfirmOrder = ({navigation}) => {
         </View>
         <Text style={[style.colorDark, { fontSize: 22, fontFamily: 'verdana', fontWeight: 'bold', marginBottom: 20 }]}>Congratulations!</Text>
         <Text>Your order has been placed</Text>
-        <Text>Order Tracking number is #336988871 </Text>
-        <SMTouchableOpacity onPress={navigation.navigate('HomeScreen')} value='Go to Home Page' touchableStyle={[style.bgDark, { marginTop: 40, color: 'white', paddingVertical: 10, paddingHorizontal: 50, borderRadius: 15 }]} textStyle={[style.colorWhite, { fontWeight: 'bold', fontSize: 18 }]} />
+        <Text>Order Tracking number is <Text style={{fontWeight:'bold', color:'black', textDecorationLine:'underline'}}>#336988871</Text> </Text>
+        <SMTouchableOpacity onPress={confirm} value='Go to Home Page' touchableStyle={[style.bgDark, { marginTop: 40, color: 'white', paddingVertical: 10, paddingHorizontal: 50, borderRadius: 15 }]} textStyle={[style.colorWhite, { fontWeight: 'bold', fontSize: 18 }]} />
       </View>
     </>
   )

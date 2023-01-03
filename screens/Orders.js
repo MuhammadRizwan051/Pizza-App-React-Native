@@ -2,9 +2,11 @@ import { View, Text, ActivityIndicator, TouchableOpacity, Image, ScrollView } fr
 import React, { useEffect, useState } from 'react'
 import style from '../styling'
 import database from '@react-native-firebase/database'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 
-const Orders = () => {
+
+const Orders = ({ navigation }) => {
   let [list, setList] = useState()
   let [dataLoader, setDataLoader] = useState(false)
 
@@ -16,7 +18,7 @@ const Orders = () => {
         // setDataLoader(false)
         console.log('dtVal', dt.val())
         let li = Object.values(dt.val())
-        setList(...li)
+        setList(li)
       }
     })
   }
@@ -38,19 +40,21 @@ const Orders = () => {
           :
           (list && list.length > 0 ?
             <ScrollView>
-              <View style={{ flexWrap: 'wrap', paddingHorizontal: 10, marginBottom: 80 }} >
+              <View style={{ flexWrap: 'wrap', paddingHorizontal: 10, marginBottom: 80 }}>
                 {list.map((e, i) => (
-                  <View style={{ width: '100%', paddingHorizontal: 5, marginTop: 20 }} key={i}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Single Order', e)} style={{ width: '100%', paddingHorizontal: 5, marginTop: 20 }} key={i}>
                     <View style={{ flexDirection: 'row', borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
-                      <View style={{ alignItems: 'center', width: '25%' }}>
-                        <Image resizeMode='stretch' style={{ height: 75, width: '100%', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, }} source={{ uri: e.src }} />
+                      <View style={{ alignItems: 'center', width: '20%', justifyContent: 'center' }}>
+                        <Icon name='reorder' size={35} />
+                        {/* <Image resizeMode='stretch' style={{ height: 75, width: '100%', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, }} source={{ uri: e.src }} /> */}
                       </View>
-                      <View style={{ paddingVertical: 10, width: '75%', justifyContent: 'center' }}>
-                        <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 22, color: 'black' }}>{e.name}</Text>
-                        <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 16, color: 'grey' }}>{e.price}/- PKR</Text>
+                      <View style={{ paddingVertical: 10, width: '80%', justifyContent: 'center' }}>
+                        <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 22, color: 'black' }}>Order{i + 1}</Text>
+                        <Text style={{ marginLeft: 20, fontWeight: 'bold', color: 'grey' }}>{e.length} items</Text>
+                        {/* <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 16, color: 'grey' }}>{e.price}/- PKR</Text> */}
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 ))
                 }
               </View>

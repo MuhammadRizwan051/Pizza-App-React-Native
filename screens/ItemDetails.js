@@ -55,21 +55,21 @@ const ItemDetails = ({ navigation, route }) => {
     model.quantity = count
     model.specialInstruction = instruction
     model.id = database().ref('addToCart/').push().key
-    
+
     database().ref(`addToCart/${model.id}`).set(model)
       .then(res => {
         setLoader(false)
         ToastAndroid.show('Item added to Cart', ToastAndroid.LONG)
         setModel(obj)
-        setinstruction('')
-        setCount(1)
+        // setinstruction('')
+        // setCount(1)
         navigation.navigate('Home')
       })
       .catch(err => {
         setLoader(false)
         setModel(obj)
-        setinstruction('')
-        setCount(1)
+        // setinstruction('')
+        // setCount(1)
         console.log(err)
       })
   }
@@ -98,10 +98,10 @@ const ItemDetails = ({ navigation, route }) => {
         </View>
         <View style={{ paddingHorizontal: 20 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', marginTop: 5 }}>Rs {model.price}</Text>
-          <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20, lineHeight: 23 }}>{model.detail}</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20, lineHeight: 23, marginBottom: 10 }}>{model.detail}</Text>
         </View>
         <View style={{ width: '100%', height: 300, justifyContent: 'center', alignItems: 'center' }}>
-          <Image resizeMode='contain' style={{ height: 200, width: '100%' }} source={{ uri: model.src }} />
+          <Image resizeMode='contain' style={{ height: 300, width: '100%' }} source={{ uri: model.src }} />
         </View>
         <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
           <Text style={{ marginBottom: 8, fontWeight: 'bold', fontSize: 20, color: 'black', fontFamily: 'lucida-sans' }}>Special Instructions</Text>

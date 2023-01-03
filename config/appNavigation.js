@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth'
 import ConfirmOrder from '../screens/ConfirmOrder';
+import SingleOrder from '../screens/SingleOrder';
 
 
 // let val;
@@ -84,6 +85,7 @@ const StackNavigator = () => (
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name='Item Details' component={ItemDetails} />
+        <Stack.Screen name='Single Order' component={SingleOrder} />
         <Stack.Screen name='Confirm Order' component={ConfirmOrder} options={{ headerShown: false }} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>

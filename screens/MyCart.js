@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, StyleSheet } from 'react-native'
 import style from '../styling'
 import database from '@react-native-firebase/database'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
+import SMTextInput from '../component/SMTextInput'
 
 
 const MyCart = ({ navigation }) => {
@@ -25,6 +26,7 @@ const MyCart = ({ navigation }) => {
             }
         })
     }
+    console.log('list',list)
     useEffect(() => {
         getData()
     }, [])
@@ -88,12 +90,12 @@ const MyCart = ({ navigation }) => {
                                 <Text style={{ color: 'black' }}>Clear All</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ marginTop: 10, paddingVertical: 5, height: '80%' }}>
+                        <View style={{ marginTop: 10, paddingVertical: 5, height: '45%' }}>
                             <ScrollView>
                                 {list.map((e, i) => (
                                     <View key={i} style={{ borderColor: 'grey', paddingVertical: 7, marginHorizontal: 15 }} >
                                         <View style={{ borderWidth: 1, borderColor: 'grey', borderRadius: 10, backgroundColor: 'white', paddingVertical: 5, width: '100%', flexDirection: 'row' }}>
-                                            <View style={{ width: '20%', alignItems:'center' }}>
+                                            <View style={{ width: '20%', alignItems: 'center' }}>
                                                 <Image source={{ uri: e.src }} resizeMode='contain' style={{ height: 40, width: 50 }} />
                                             </View>
                                             <View style={{ width: '70%', justifyContent: 'center', flexDirection: 'column' }}>
@@ -115,15 +117,39 @@ const MyCart = ({ navigation }) => {
                                 }
                             </ScrollView>
                         </View>
-                        <View style={{ width: '100%', paddingHorizontal: 20, position: 'absolute', bottom: 10 }}>
+                        <View style={{ width: '100%', borderLeftWidth: 1, borderRightWidth: 1, borderTopWidth: 3, borderTopRightRadius: 20, borderTopLeftRadius: 20, paddingHorizontal: 20, position: 'absolute', bottom: 10 }}>
+                            {/* <SMTextInput placeholder='Name' /> */}
+                            {/* <SMTextInput value={model.name} placeholder='Name' style={[styles.input]} onChangeText={e => setModel({ ...model, name: e })} /> */}
+                            <View style={{ marginBottom: 20, marginTop: 10 }}>
+                                <SMTextInput placeholder='Name' style={[styles.input]} />
+                                <SMTextInput placeholder='Address' style={[styles.input]} />
+                                <SMTextInput placeholder='Contact' style={[styles.input]} />
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, }}>
+                                <Text style={{ color: 'black' }}>Sub Total</Text>
+                                <Text style={{ color: 'black' }}>150</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, }}>
+                                <Text style={{ color: 'black' }}>Tax 13.00%</Text>
+                                <Text style={{ color: 'black' }}>150</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, }}>
+                                <Text style={{ color: 'black' }}>Delivery Fee</Text>
+                                <Text style={{ color: 'black' }}>150</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, }}>
+                                <Text style={{ color: 'black', fontWeight: 'bold' }}>Total</Text>
+                                <Text style={{ color: 'black' }}>150</Text>
+                            </View>
                             <SMTouchableOpacity onPress={checkout} value={checkoutLoader ? <ActivityIndicator size='large' color='white' /> : 'Checkout'}
-                                touchableStyle={{ borderRadius: 5, backgroundColor: '#367E18', width: '100%', paddingVertical: 10 }}
+                                touchableStyle={{ marginTop: 5, borderRadius: 5, backgroundColor: '#367E18', width: '100%', paddingVertical: 10 }}
                                 textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20 }]} />
                         </View>
                     </>
                     :
                     <View style={{ height: '90%', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 32 }}>Cart is Empty</Text>
+                        <Icon name='shopping-bag' size={80} color='#DC3535' />
+                        <Text style={{ fontSize: 32, color:'#DC3535' }}>Cart is Empty</Text>
                     </View>
                 )
             }
@@ -132,3 +158,14 @@ const MyCart = ({ navigation }) => {
 }
 
 export default MyCart
+
+
+const styles = StyleSheet.create({
+    input: {
+        borderBottomWidth: 1,
+        borderRadius: 8,
+        paddingBottom: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 10
+    }
+})
