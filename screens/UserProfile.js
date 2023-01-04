@@ -56,10 +56,28 @@ const UserProfile = ({ navigation }) => {
         <View style={{ borderRadius: 50 }}>
           <Image source={photo} style={{ borderRadius: 50, height: 80, width: 80 }} />
         </View>
-        <View style={{ justifyContent: 'center' }}>
-          <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>{login.userName}</Text>
-          <Text style={{ fontSize: 16, textAlign: 'center' }}>{login.email}</Text>
-          <Text style={{ fontSize: 16, textAlign: 'center' }}>{login.contact}</Text>
+        <View style={{ shadowColor: "rgba(0,0,0,.5)", elevation: 5, justifyContent: 'center', backgroundColor: 'white', width: '90%', borderRadius: 20, marginTop: 20, paddingVertical: 20 }}>
+          <Text style={{ color: 'black', fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Personal Information</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingTop: 12 }}>
+            <Text style={{ fontSize: 16, width: '40%' }}>Name:</Text>
+            <Text style={{ fontSize: 16, width: '60%' }}>{login.userName}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingTop: 12 }}>
+            <Text style={{ fontSize: 16, width: '40%' }}>Email:</Text>
+            <Text style={{ fontSize: 16, width: '60%' }}>{login.email}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingTop: 12 }}>
+            <Text style={{ fontSize: 16, width: '40%' }}>Password:</Text>
+            <Text style={{ fontSize: 16, width: '60%' }}>{login.password}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingTop: 12 }}>
+            <Text style={{ fontSize: 16, width: '40%' }}>Contact:</Text>
+            <Text style={{ fontSize: 16, width: '60%' }}>{login.contact}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingTop: 12 }}>
+            <Text style={{ fontSize: 16, width: '40%' }}>Account:</Text>
+            <Text style={{ fontSize: 16, width: '60%' }}>{login.category}</Text>
+          </View>
         </View>
       </View>
 
