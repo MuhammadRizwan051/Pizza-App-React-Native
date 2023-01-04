@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import SMTextInput from '../component/SMTextInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth'
@@ -58,11 +58,19 @@ function Login({ navigation }) {
           <View style={{ borderWidth: 10, borderRadius: 40, backgroundColor: 'white', borderColor: '#DC3535', alignItems: 'center', marginVertical: '40%', paddingVertical: 40 }}>
             <Text style={{ color: '#DC3535', fontWeight: 'bold', fontSize: 26 }}>LOGIN</Text>
             <Icon name='person' size={90} color='#DC3535' />
-            <View style={{ width: '100%', paddingTop: 25, paddingBottom: 0, paddingHorizontal: 15 }}>
-              <SMTextInput value={model.email} style={[style.colorDark, { borderRadius: 10, borderBottomWidth: 3, borderColor: '#DC3535', paddingVertical: 5, paddingHorizontal: 15, fontSize: 16 }]} placeholder="Email" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, email: e })} />
+
+            <View style={[styles.inputContainer]}>
+              <View style={[styles.iconContainer]}>
+                <Icon name='email' size={20} color='white' />
+              </View>
+              <SMTextInput value={model.email} style={[styles.input]} placeholder="Email" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, email: e })} />
             </View>
-            <View style={{ width: '100%', paddingTop: 25, paddingBottom: 0, paddingHorizontal: 15 }}>
-              <SMTextInput value={model.password} secureTextEntry={true} style={[style.colorDark, { borderRadius: 10, borderBottomWidth: 3, borderColor: '#DC3535', paddingVertical: 5, paddingHorizontal: 15, fontSize: 16 }]} placeholder="Password" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, password: e })} />
+
+            <View style={[styles.inputContainer]}>
+              <View style={[styles.iconContainer]}>
+                <Icon name='lock' size={20} color='white' />
+              </View>
+              <SMTextInput value={model.password} secureTextEntry={true} style={[styles.input]} placeholder="Password" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, password: e })} />
             </View>
 
             <View style={{ width: '40%', marginTop: 50, justifyContent: 'center' }}>
@@ -90,3 +98,29 @@ function Login({ navigation }) {
   );
 }
 export default Login;
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    flexDirection: 'row',
+    width: '90%',
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: '#DC3535',
+    paddingBottom: 0,
+    marginTop: 15
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    backgroundColor: '#DC3535',
+    borderTopLeftRadius: 17,
+    borderBottomLeftRadius: 17,
+    paddingHorizontal: 5,
+    paddingVertical: 7,
+    paddingHorizontal: 8
+  },
+  input: {
+    paddingVertical: 4,
+    paddingHorizontal: 15,
+    fontSize: 16
+  }
+})

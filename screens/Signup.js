@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import SMTextInput from '../component/SMTextInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth'
@@ -9,8 +9,10 @@ import style from '../styling';
 
 function SignUp({ navigation }) {
   let initialData = {
+    userName: '',
     email: '',
     password: '',
+    contact: '',
     category: 'user'
   }
   const [model, setModel] = useState(initialData)
@@ -40,22 +42,44 @@ function SignUp({ navigation }) {
     <>
       <View style={[style.bgDark, { height: '100%' }]}>
         <ScrollView>
-          <View style={{ borderWidth: 10, borderRadius: 40, backgroundColor: 'white', borderColor: '#DC3535', alignItems: 'center', marginVertical: '40%', paddingVertical: 40 }}>
+          <View style={{ borderWidth: 10, borderRadius: 40, backgroundColor: 'white', borderColor: '#DC3535', alignItems: 'center', marginVertical: '30%', paddingVertical: 30 }}>
             <Text style={{ color: '#DC3535', fontWeight: 'bold', fontSize: 26 }}>SIGNUP</Text>
             <Icon name='person' size={90} color='#DC3535' />
-            <View style={{ width: '100%', paddingTop: 25, paddingBottom: 0, paddingHorizontal: 15 }}>
-              <SMTextInput value={model.email} style={{ borderRadius: 10, borderBottomWidth: 3, borderColor: '#DC3535', paddingVertical: 5, paddingHorizontal: 15, fontSize: 16 }} placeholder="Email" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, email: e })} />
-            </View>
-            <View style={{ width: '100%', paddingTop: 25, paddingBottom: 0, paddingHorizontal: 15 }}>
-              <SMTextInput value={model.password} secureTextEntry={true} style={{ borderRadius: 10, borderBottomWidth: 3, borderColor: '#DC3535', paddingVertical: 5, paddingHorizontal: 15, fontSize: 16 }} placeholder="Password" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, password: e })} />
+
+            <View style={[styles.inputContainer]}>
+              <View style={[styles.iconContainer]}>
+                <Icon name='person' size={20} color='white' />
+              </View>
+              <SMTextInput value={model.userName} style={[styles.input]} placeholder="User Name" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, userName: e })} />
             </View>
 
-            <View style={{ width: '40%', marginTop: 50, justifyContent: 'center' }}>
+            <View style={[styles.inputContainer]}>
+              <View style={[styles.iconContainer]}>
+                <Icon name='email' size={20} color='white' />
+              </View>
+              <SMTextInput value={model.email} style={[styles.input]} placeholder="Email" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, email: e })} />
+            </View>
+
+            <View style={[styles.inputContainer]}>
+              <View style={[styles.iconContainer]}>
+                <Icon name='lock' size={20} color='white' />
+              </View>
+              <SMTextInput value={model.password} secureTextEntry={true} style={[styles.input]} placeholder="Password" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, password: e })} />
+            </View>
+
+            <View style={[styles.inputContainer]}>
+              <View style={[styles.iconContainer]}>
+                <Icon name='phone-android' size={20} color='white' />
+              </View>
+              <SMTextInput value={model.contact} keyboardType='number-pad' style={[styles.input]} placeholder="Contact" placeholderTextColor='grey' onChangeText={e => setModel({ ...model, contact: e })} />
+            </View>
+
+            <View style={{ width: '40%', marginTop: 40, justifyContent: 'center' }}>
               <TouchableOpacity onPress={signupuser} style={[style.bgDark, { paddingVertical: 8, borderRadius: 10 }]}>
-                <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{isLoading ? <ActivityIndicator size='large' color="white" /> : 'SIGNUP'}</Text>
+                <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>{isLoading ? <ActivityIndicator size={25} color="white" /> : 'SIGNUP'}</Text>
               </TouchableOpacity>
             </View>
-            <View style={{ marginTop: 20, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ marginTop: 15, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ fontSize: 16, color: 'black' }}>
                 Already a user? </Text>
               <TouchableOpacity
@@ -75,3 +99,30 @@ function SignUp({ navigation }) {
   );
 }
 export default SignUp;
+
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    flexDirection: 'row',
+    width: '90%',
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: '#DC3535',
+    paddingBottom: 0,
+    marginTop: 15
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    backgroundColor: '#DC3535',
+    borderTopLeftRadius: 17,
+    borderBottomLeftRadius: 17,
+    paddingHorizontal: 5,
+    paddingVertical: 7,
+    paddingHorizontal: 8
+  },
+  input: {
+    paddingVertical: 4,
+    paddingHorizontal: 15,
+    fontSize: 16
+  }
+})

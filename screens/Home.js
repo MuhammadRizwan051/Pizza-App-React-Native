@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
 
   let removeAsyncData = async () => {
     try {
-      const removeVal =  await AsyncStorage.removeItem('LoginKey');
+      const removeVal = await AsyncStorage.removeItem('LoginKey');
       console.log('LoginKey remove')
       // return true;
     }
@@ -85,14 +85,14 @@ const Home = ({ navigation }) => {
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 5 }}>
                 {list.length > 0 ? list.map((e, i) => (
                   <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 5, marginTop: 20 }} key={i}>
-                    <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
-                      <View style={{ alignItems: 'center' }}>
-                        <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 7, borderTopLeftRadius: 7 }} source={{ uri: e.src }} />
+                    <View style={{ height: 220, borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
+                      <View style={{ height: 130, alignItems: 'center' }}>
+                        <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderTopRightRadius: 5, borderTopLeftRadius: 5 }} source={{ uri: e.src }} />
                         {/* <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 7, borderTopLeftRadius: 7 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} /> */}
                       </View>
-                      <View style={{ paddingVertical: 10 }}>
+                      <View style={{ height: 90, paddingVertical: 10 }}>
                         <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16, color: 'black' }}>{e.name.toUpperCase()}</Text>
-                        <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>Rs {e.price}</Text>
+                        <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 14, color: 'grey', position: 'absolute', bottom: 10, left: 0, right: 0 }}>Rs {e.price}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>

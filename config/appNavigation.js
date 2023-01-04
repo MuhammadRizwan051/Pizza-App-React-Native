@@ -16,41 +16,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth'
 import ConfirmOrder from '../screens/ConfirmOrder';
 import SingleOrder from '../screens/SingleOrder';
+import UserProfile from '../screens/UserProfile';
+import AdminProfile from '../screens/AdminProfile';
 
-
-// let val;
-// let val ='admin'
 
 function AppNavigation() {
-    // const [category,setCategory] = useState('')
-    let [obj, setObj] = useState()
-
-
-    // let checkUser = async () => {
-    //     auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             console.log('Data Receive Outer', obj)
-    //             // User is signed in
-    //             // const uid = user.uid
-    //             // resolve(uid)
-    //             console.log('Check User', user.email)
-    //             // console.log('Check User', user.email)
-    //         }
-    //         // else {
-    //         //     // User is signed out
-    //         //     console.log("No user is Login ..")
-    //         // }
-    //     })
-    // }
-    // console.log('category======>', category)
-
-
-
-
-    // useEffect(() => {
-    //     checkUser()
-    //     // getData()
-    // }, [])
 
     return (
         <NavigationContainer>
@@ -77,7 +47,6 @@ function TabNavigator() {
 
     let [login, setLogin] = useState()
     let getData = async () => {
-        // try {
         const jsonValue = await AsyncStorage.getItem('LoginKey')
         const data = jsonValue !== null ? JSON.parse(jsonValue) : null
         setLogin(data.category)
@@ -89,7 +58,7 @@ function TabNavigator() {
         getData()
     }, [])
     return (
-        < Tab.Navigator
+        <Tab.Navigator
             screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
         >
             {type ?
@@ -126,9 +95,30 @@ function TabNavigator() {
                                 </>
                             )
                         }} />
+                    <Tab.Screen name="UserProfile"
+                        component={UserProfile}
+                        options={{
+                            // tabBarBadge: listItems,
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>My Cart</Text> */}
+                                </>
+                            )
+                        }} />
                 </>
                 :
                 <>
+                    <Tab.Screen name="Add"
+                        component={AddItem}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/992/992651.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text> */}
+                                </>
+                            )
+                        }} />
                     <Tab.Screen name="Orders"
                         component={Orders}
                         options={{
@@ -140,13 +130,14 @@ function TabNavigator() {
                                 </>
                             )
                         }} />
-                    <Tab.Screen name="Add"
-                        component={AddItem}
+                    <Tab.Screen name="AdminProfile"
+                        component={AdminProfile}
                         options={{
+                            tabBarBadge: 1,
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/992/992651.png' }} />
-                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text> */}
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ORDERS</Text> */}
                                 </>
                             )
                         }} />

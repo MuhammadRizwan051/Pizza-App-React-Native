@@ -10,6 +10,18 @@ const Orders = ({ navigation }) => {
   let [list, setList] = useState()
   let [dataLoader, setDataLoader] = useState(false)
 
+  let removeAsyncData = async () => {
+    try {
+      const removeVal = await AsyncStorage.removeItem('LoginKey');
+      console.log('LoginKey remove')
+      // return true;
+    }
+    catch (exception) {
+      console.log('LoginKey not remove')
+      // return false;
+    }
+  }
+
   let logoutUser = () => {
     auth()
       .signOut()
