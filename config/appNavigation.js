@@ -18,6 +18,7 @@ import ConfirmOrder from '../screens/ConfirmOrder';
 import SingleOrder from '../screens/SingleOrder';
 import UserProfile from '../screens/UserProfile';
 import AdminProfile from '../screens/AdminProfile';
+import database from '@react-native-firebase/database'
 
 
 function AppNavigation() {
@@ -57,6 +58,27 @@ function TabNavigator() {
     useEffect(() => {
         getData()
     }, [])
+
+
+    let [list, setList] = useState()
+    let ordersData = () => {
+        database().ref('orders').on('value', dt => {
+            if (dt.exists()) {
+                console.log('dtVal', dt.val())
+                let li = Object.values(dt.val())
+                setList(li)
+            }
+        })
+    }
+    let orderLength = list && list.length
+    console.log(orderLength)
+    console.log('list', list)
+
+    useEffect(() => {
+        ordersData()
+    }, [])
+
+
     return (
         <Tab.Navigator
             screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
@@ -122,7 +144,7 @@ function TabNavigator() {
                     <Tab.Screen name="Orders"
                         component={Orders}
                         options={{
-                            tabBarBadge: 1,
+                            tabBarBadge: orderLength,
                             tabBarIcon: ({ focused }) => (
                                 <>
                                     <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/7322/7322265.png' }} />
@@ -133,7 +155,6 @@ function TabNavigator() {
                     <Tab.Screen name="AdminProfile"
                         component={AdminProfile}
                         options={{
-                            tabBarBadge: 1,
                             tabBarIcon: ({ focused }) => (
                                 <>
                                     <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png' }} />

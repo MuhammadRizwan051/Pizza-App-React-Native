@@ -57,15 +57,9 @@ const Orders = ({ navigation }) => {
   return (
     <>
       <View>
-        <View style={[style.bgDark, { paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }]}>
-          <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Orders</Text>
-          <TouchableOpacity onPress={logoutUser}>
-            <Icon name='logout' size={25} color='white' />
-          </TouchableOpacity>
-        </View>
-        {/* <View style={[style.bgDark, { paddingVertical: 10 }]}>
-          <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>Orders</Text>
-        </View> */}
+      <View style={[style.bgDark, { paddingVertical: 10 }]}>
+        <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>Orders</Text>
+      </View>
         {dataLoader ? <View style={{ height: '100%', justifyContent: 'center' }}>
           <ActivityIndicator size={60} color='red' />
         </View>
@@ -87,7 +81,7 @@ const Orders = ({ navigation }) => {
                       </View>
                     </View>
                   </TouchableOpacity>
-                ))
+                ))  
                 }
               </View>
             </ScrollView>

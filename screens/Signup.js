@@ -116,13 +116,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#DC3535',
     borderTopLeftRadius: 17,
     borderBottomLeftRadius: 17,
-    paddingHorizontal: 5,
-    paddingVertical: 7,
-    paddingHorizontal: 8
+    width: '12%',
+    alignItems: 'center',
+    paddingVertical: 7
   },
   input: {
     paddingVertical: 4,
     paddingHorizontal: 15,
-    fontSize: 16
+    fontSize: 16,
+    width: '87%'
   }
 })

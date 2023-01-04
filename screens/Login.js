@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView, StyleSheet, ToastAndroid } from 'react-native';
 import SMTextInput from '../component/SMTextInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth'
@@ -15,9 +15,8 @@ function Login({ navigation }) {
   }
   const [model, setModel] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false)
-  const [dataStore, setDataStore] = useState(false)
 
-  let category;
+  // let category;
   let loginuser = () => {
     setIsLoading(true)
 
@@ -25,7 +24,7 @@ function Login({ navigation }) {
       .then(res => {
         const user = res.user
         database().ref(`appUsers/${user.uid}`).on('value', dt => {
-          category = dt.val().category
+          // category = dt.val().category
 
           const storeData = async () => {
             try {
@@ -33,11 +32,12 @@ function Login({ navigation }) {
               await AsyncStorage.setItem('LoginKey', jsonValue)
               setModel(initialData)
               setIsLoading(false)
-              setDataStore(true)
+              ToastAndroid.show('Login Successfully', ToastAndroid.SHORT)
               navigation.navigate('HomeScreen')
               console.log('Data stored', jsonValue)
             } catch (e) {
               // saving error
+              ToastAndroid.show('Please! try again', ToastAndroid.SHORT)
               console.log('Data not stored', e)
             }
           }
@@ -114,13 +114,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#DC3535',
     borderTopLeftRadius: 17,
     borderBottomLeftRadius: 17,
-    paddingHorizontal: 5,
+    width:'12%',
+    alignItems:'center',
     paddingVertical: 7,
-    paddingHorizontal: 8
   },
   input: {
     paddingVertical: 4,
     paddingHorizontal: 15,
-    fontSize: 16
+    fontSize: 16,
+    width: '87%',
   }
 })

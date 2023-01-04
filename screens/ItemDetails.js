@@ -48,8 +48,6 @@ const ItemDetails = ({ navigation, route }) => {
   // console.log('arr', arr)
 
 
-
-
   let addToCart = () => {
     setLoader(true)
     model.quantity = count
@@ -73,9 +71,6 @@ const ItemDetails = ({ navigation, route }) => {
         console.log(err)
       })
   }
-
-
-
 
 
   let add = () => {
