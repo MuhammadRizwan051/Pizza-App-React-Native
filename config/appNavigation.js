@@ -24,52 +24,33 @@ import SingleOrder from '../screens/SingleOrder';
 function AppNavigation() {
     // const [category,setCategory] = useState('')
     let [obj, setObj] = useState()
-    let [category, setCategory] = useState()
 
-    let getData = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem('LoginKey')
-            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
-            setTimeout(() => {
-                if (data) {
-                    console.log('data', data)
-                    setObj(data)
-                    // setCategory(obj.category)
-                    val = category
-                    console.log('Data Receive Inner', obj)
-                }
-            }, 5000);
-        } catch (e) {
-            console.log(e)
-        }
-    }
 
-    let checkUser = async () => {
-        auth().onAuthStateChanged((user) => {
-            // getData()
-            if (user) {
-                console.log('Data Receive Outer', obj)
-                // User is signed in
-                // const uid = user.uid
-                // resolve(uid)
-                console.log('Check User', user.email)
-                // console.log('Check User', user.email)
-            }
-            // else {
-            //     // User is signed out
-            //     console.log("No user is Login ..")
-            // }
-        })
-    }
+    // let checkUser = async () => {
+    //     auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             console.log('Data Receive Outer', obj)
+    //             // User is signed in
+    //             // const uid = user.uid
+    //             // resolve(uid)
+    //             console.log('Check User', user.email)
+    //             // console.log('Check User', user.email)
+    //         }
+    //         // else {
+    //         //     // User is signed out
+    //         //     console.log("No user is Login ..")
+    //         // }
+    //     })
+    // }
     // console.log('category======>', category)
 
 
 
 
-    useEffect(() => {
-        checkUser()
-        getData()
-    }, [])
+    // useEffect(() => {
+    //     checkUser()
+    //     // getData()
+    // }, [])
 
     return (
         <NavigationContainer>
@@ -92,66 +73,88 @@ const StackNavigator = () => (
 )
 
 const Tab = createBottomTabNavigator();
-const TabNavigator = () => (
-    // {category==""}
-    <Tab.Navigator
-        screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
-    >
-        <Tab.Screen name="Home"
-            component={Home}
-            options={{
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1946/1946488.png' }} />
-                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>HOME</Text> */}
-                    </>
-                )
-            }} />
-        <Tab.Screen name="Favourites"
-            component={Favourites}
-            options={{
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/126/126471.png' }} />
-                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>Favourites</Text> */}
-                    </>
-                )
-            }} />
-        <Tab.Screen name="MyCart"
-            component={MyCart}
-            options={{
-                // tabBarBadge: listItems,
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
-                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>My Cart</Text> */}
-                    </>
-                )
-            }} />
-        <Tab.Screen name="Orders"
-            component={Orders}
-            options={{
-                tabBarBadge: 1,
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/7322/7322265.png' }} />
-                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ORDERS</Text> */}
-                    </>
-                )
-            }} />
-        <Tab.Screen name="Add"
-            component={AddItem}
-            options={{
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/992/992651.png' }} />
-                        {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text> */}
-                    </>
-                )
-            }} />
+function TabNavigator() {
 
-    </Tab.Navigator>
-)
+    let [login, setLogin] = useState()
+    let getData = async () => {
+        // try {
+        const jsonValue = await AsyncStorage.getItem('LoginKey')
+        const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+        setLogin(data.category)
+    }
+    let type = login == "user";
+    console.log('login', login);
+    console.log('type', type);
+    useEffect(() => {
+        getData()
+    }, [])
+    return (
+        < Tab.Navigator
+            screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
+        >
+            {type ?
+                <>
+                    <Tab.Screen name="Home"
+                        component={Home}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1946/1946488.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>HOME</Text> */}
+                                </>
+                            )
+                        }} />
+                    <Tab.Screen name="Favourites"
+                        component={Favourites}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/126/126471.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>Favourites</Text> */}
+                                </>
+                            )
+                        }} />
+
+                    <Tab.Screen name="MyCart"
+                        component={MyCart}
+                        options={{
+                            // tabBarBadge: listItems,
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>My Cart</Text> */}
+                                </>
+                            )
+                        }} />
+                </>
+                :
+                <>
+                    <Tab.Screen name="Orders"
+                        component={Orders}
+                        options={{
+                            tabBarBadge: 1,
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/7322/7322265.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ORDERS</Text> */}
+                                </>
+                            )
+                        }} />
+                    <Tab.Screen name="Add"
+                        component={AddItem}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/992/992651.png' }} />
+                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text> */}
+                                </>
+                            )
+                        }} />
+                </>
+            }
+        </Tab.Navigator >
+    )
+}
 
 export default AppNavigation
 
