@@ -1,48 +1,55 @@
-import {View, Text} from 'react-native';
-import React from 'react';
-import style from '../styling';
+// import React, { useCallback, useMemo, useRef } from 'react';
+import 'react-native-gesture-handler'
+import { View, Text, StyleSheet } from 'react-native';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { useRef } from 'react';
 
 const Favourites = () => {
-  let list = [
-    [
-      {
-        detail: 'emrl;kmre',
-        id: '-NKlrWQLiBIiXzl8uKe_',
-        name: 'oprekmer,ler',
-        price: ',er;lre,',
-        quantity: 3,
-        specialInstruction: '',
-        src: 'https://cdn.britannica.com/08/177308-050-94D9D6BE/Food-Pizza-Basil-Tomato.jpg',
-      },
-    ],
-    [
-      {
-        detail: 'Ldndlsns',
-        id: '-NKhk_FLBiwg7fHNZ8Hl',
-        name: 'Nnn',
-        price: ',94 49',
-        quantity: 1,
-        specialInstruction: '',
-        src: 'file:///data/user/0/com.pizzaapp/cache/rn_image_picker_lib_temp_b033d633-fa09-4d4c-a4a0-e77758218090.jpg',
-      },
-    ],
-  ];
+  // ref
+  const bottomSheetModalRef = useRef(null);
+  const snapPoints = ["48%"]
 
+  function handlePresentModal() {
+    bottomSheetModalRef.current?.present()
+  }
+
+  // variables
+  // const snapPoints = useMemo(() => ['25%', '50%'], []);
+
+  // callbacks
+  // const handleSheetChanges = useCallback((index: number) => {
+  //   console.log('handleSheetChanges', index);
+  // }, []);
+
+  // renders
   return (
-    <>
-      <View style={[style.bgDark, {paddingVertical: 10}]}>
-        <Text
-          style={{
-            textAlign: 'center',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: 20,
-          }}>
-          Favourites
-        </Text>
+    <BottomSheetModalProvider>
+      <View style={styles.container}>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+        >
+          <View style={styles.contentContainer}>
+            <Text>Awesome 🎉</Text>
+          </View>
+        </BottomSheetModal>
       </View>
-    </>
+    </BottomSheetModalProvider>
   );
 };
 
 export default Favourites;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+});

@@ -75,7 +75,7 @@ const Orders = ({ navigation }) => {
                         {/* <Image resizeMode='stretch' style={{ height: 75, width: '100%', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, }} source={{ uri: e.src }} /> */}
                       </View>
                       <View style={{ paddingVertical: 10, width: '80%', justifyContent: 'center' }}>
-                        <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 22, color: 'black' }}>Order{i + 1}</Text>
+                        <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 22, color: 'black' }}>Order {i + 1}</Text>
                         <Text style={{ marginLeft: 20, fontWeight: 'bold', color: 'grey' }}>{e.length} items</Text>
                         {/* <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 16, color: 'grey' }}>{e.price}/- PKR</Text> */}
                       </View>

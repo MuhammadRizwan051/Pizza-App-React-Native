@@ -15,12 +15,12 @@ const AdminProfile = ({ navigation }) => {
   let [login, setLogin] = useState({})
   let [loader, setLoader] = useState(false)
 
-//   let remove = async (e) => {
-//     await database().ref(`addToCart/${e.id}`).remove()
-//     console.log(e)
-// }
+  //   let remove = async (e) => {
+  //     await database().ref(`addToCart/${e.id}`).remove()
+  //     console.log(e)
+  // }
 
-  
+
   let getData = async () => {
     const jsonValue = await AsyncStorage.getItem('LoginKey')
     const data = jsonValue !== null ? JSON.parse(jsonValue) : null
@@ -55,19 +55,19 @@ const AdminProfile = ({ navigation }) => {
 
   let deleteUser = async () => {
     setLoader(true)
-    try{
-        await database().ref(`appUsers/${login.id}`).remove()
-        setLoader(false)
-        ToastAndroid.show('User has been deleted', ToastAndroid.SHORT)
-        navigation.navigate('Signup')
-        console.log('id', id)
-      }
-      catch(err) {
-        setLoader(false)
-        console.log(err)
-      }
+    try {
+      await database().ref(`appUsers/${login.id}`).remove()
+      setLoader(false)
+      ToastAndroid.show('User has been deleted', ToastAndroid.SHORT)
+      navigation.navigate('Signup')
+      console.log('id', id)
+    }
+    catch (err) {
+      setLoader(false)
+      console.log(err)
+    }
   }
-console.log(login.id)
+  console.log(login.id)
 
   // let uploadImage = async () => {
   //   try{
@@ -140,8 +140,8 @@ console.log(login.id)
 
           </View>
 
-          <View style={{ alignItems: 'center', marginTop: 15 }}>
-            <View style={{ width: '90%', borderRadius: 20, flexDirection: 'row', backgroundColor: 'white', shadowColor: "rgba(0,0,0,.5)", elevation: 5 }}>
+          <TouchableOpacity style={{ alignItems: 'center', marginTop: 15, shadowColor: "rgba(0,0,0,.5)", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.32, shadowRadius: 5.46, elevation: 5 }}>
+            <View style={{ width: '90%', borderRadius: 20, flexDirection: 'row', backgroundColor: 'white' }}>
               <View style={{ width: '15%', borderTopLeftRadius: 18, borderBottomLeftRadius: 18, alignItems: 'center', backgroundColor: '#DC3535', paddingVertical: 15 }}>
                 <Icon name='grading' size={30} color='white' />
               </View>
@@ -149,10 +149,10 @@ console.log(login.id)
                 <Text style={{ color: 'black', fontSize: 18 }}>Delivered Orders</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={{ alignItems: 'center', marginTop: 15 }}>
-            <View style={{ width: '90%', borderRadius: 20, flexDirection: 'row', backgroundColor: 'white', shadowColor: "rgba(0,0,0,.5)", elevation: 5 }}>
+          <TouchableOpacity style={{ alignItems: 'center', marginTop: 15, shadowColor: "rgba(0,0,0,.5)", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.32, shadowRadius: 5.46, elevation: 5 }}>
+            <View style={{ width: '90%', borderRadius: 20, flexDirection: 'row', backgroundColor: 'white' }}>
               <View style={{ width: '15%', borderTopLeftRadius: 18, borderBottomLeftRadius: 18, alignItems: 'center', backgroundColor: '#DC3535', paddingVertical: 15 }}>
                 <Icon name='pending' size={30} color='white' />
               </View>
@@ -160,7 +160,7 @@ console.log(login.id)
                 <Text style={{ color: 'black', fontSize: 18 }}>Pending Orders</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
 

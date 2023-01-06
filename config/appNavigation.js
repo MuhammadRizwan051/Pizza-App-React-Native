@@ -60,22 +60,40 @@ function TabNavigator() {
     }, [])
 
 
-    let [list, setList] = useState()
+    let [orderList, setOrderList] = useState()
     let ordersData = () => {
         database().ref('orders').on('value', dt => {
             if (dt.exists()) {
                 console.log('dtVal', dt.val())
                 let li = Object.values(dt.val())
-                setList(li)
+                setOrderList(li)
             }
         })
     }
-    let orderLength = list && list.length
+    let orderLength = orderList && setOrderList.length
     console.log(orderLength)
-    console.log('list', list)
+    console.log('orderList', setOrderList)
 
     useEffect(() => {
         ordersData()
+    }, [])
+
+
+    let [cartList, setCartList] = useState()
+    let cartData = () => {
+        database().ref('addToCart').on('value', dt => {
+            if (dt.exists()) {
+                console.log('dtVal', dt.val())
+                let li = Object.values(dt.val())
+                setCartList(li)
+            }
+        })
+    }
+    let cartLength = cartList && cartList.length
+    console.log(cartLength)
+
+    useEffect(() => {
+        cartData()
     }, [])
 
 
@@ -109,7 +127,7 @@ function TabNavigator() {
                     <Tab.Screen name="MyCart"
                         component={MyCart}
                         options={{
-                            // tabBarBadge: listItems,
+                            tabBarBadge: cartLength,
                             tabBarIcon: ({ focused }) => (
                                 <>
                                     <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
