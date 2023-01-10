@@ -10,7 +10,7 @@ import ItemDetails from '../screens/ItemDetails';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth'
@@ -99,7 +99,7 @@ function TabNavigator() {
 
     return (
         <Tab.Navigator
-            screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
+            screenOptions={{ tabBarShowLabel: false, headerShown: false }}
         >
             {type ?
                 <>
@@ -108,8 +108,8 @@ function TabNavigator() {
                         options={{
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1946/1946488.png' }} />
-                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>HOME</Text> */}
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? '#DC3535' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1946/1946488.png' }} />
+                                    {/* <Text style={{ marginTop: 3, fontSize: 12, color: focused ? '#DC3535' : 'black' }}>Home</Text> */}
                                 </>
                             )
                         }} />
@@ -118,8 +118,8 @@ function TabNavigator() {
                         options={{
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/126/126471.png' }} />
-                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>Favourites</Text> */}
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? '#DC3535' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/126/126471.png' }} />
+                                    {/* <Text style={{ marginTop: 3, fontSize: 12, color: focused ? '#DC3535' : 'black' }}>Favourites</Text> */}
                                 </>
                             )
                         }} />
@@ -130,8 +130,8 @@ function TabNavigator() {
                             tabBarBadge: cartLength,
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
-                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>My Cart</Text> */}
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? '#DC3535' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2832/2832495.png' }} />
+                                    {/* <Text style={{ marginTop: 3, fontSize: 12, color: focused ? '#DC3535' : 'black' }}>My Cart</Text> */}
                                 </>
                             )
                         }} />
@@ -141,8 +141,8 @@ function TabNavigator() {
                             // tabBarBadge: listItems,
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png' }} />
-                                    {/* <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>My Cart</Text> */}
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? '#DC3535' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png' }} />
+                                    {/* <Text style={{ marginTop: 3, fontSize: 12, color: focused ? '#DC3535' : 'black' }}>Profile</Text> */}
                                 </>
                             )
                         }} />

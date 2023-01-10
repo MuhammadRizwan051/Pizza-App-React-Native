@@ -1,55 +1,21 @@
-// import React, { useCallback, useMemo, useRef } from 'react';
-import 'react-native-gesture-handler'
-import { View, Text, StyleSheet } from 'react-native';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { useRef } from 'react';
+import React from 'react'
+import { View, Text } from 'react-native'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import style from '../styling'
 
 const Favourites = () => {
-  // ref
-  const bottomSheetModalRef = useRef(null);
-  const snapPoints = ["48%"]
 
-  function handlePresentModal() {
-    bottomSheetModalRef.current?.present()
-  }
-
-  // variables
-  // const snapPoints = useMemo(() => ['25%', '50%'], []);
-
-  // callbacks
-  // const handleSheetChanges = useCallback((index: number) => {
-  //   console.log('handleSheetChanges', index);
-  // }, []);
-
-  // renders
   return (
-    <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={0}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-        >
-          <View style={styles.contentContainer}>
-            <Text>Awesome 🎉</Text>
-          </View>
-        </BottomSheetModal>
+    <>
+      <View style={[style.bgDark, { paddingVertical: 10 }]}>
+        <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>Favourites</Text>
       </View>
-    </BottomSheetModalProvider>
-  );
-};
+      <View style={{ height: '90%', justifyContent: 'center', alignItems: 'center' }}>
+        <Icon name='favorite-border' size={80} color='#DC3535' />
+        <Text style={{ fontSize: 25, color: '#DC3535' }}>No item added to favourite</Text>
+      </View>
+    </>
+  )
+}
 
-export default Favourites;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: 'grey',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-});
+export default Favourites

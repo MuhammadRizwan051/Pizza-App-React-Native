@@ -65,11 +65,8 @@ const Home = ({ navigation }) => {
   return (
     <>
       <View>
-        <View style={[style.bgDark, { paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }]}>
-          <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Home</Text>
-          <TouchableOpacity onPress={logoutUser}>
-            <Icon name='logout' size={25} color='white' />
-          </TouchableOpacity>
+        <View style={[style.bgDark, { paddingVertical: 10 }]}>
+          <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>Home</Text>
         </View>
 
         {dataLoader ? <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
