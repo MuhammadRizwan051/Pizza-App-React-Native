@@ -1,5 +1,5 @@
 import { View, Text, Image, ToastAndroid, ActivityIndicator, ScrollView, TouchableOpacity, Modal, StyleSheet, Pressable, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from '../styling'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
@@ -48,13 +48,25 @@ const ItemDetails = ({ navigation, route }) => {
   // console.log('arr', arr)
 
 
+  let [login, setLogin] = useState()
+  let getData = async () => {
+    const jsonValue = await AsyncStorage.getItem('LoginKey')
+    const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+    setLogin(data.id)
+
+  }
+  useEffect(() => {
+    getData()
+  }, [])
+
+
   let addToCart = () => {
     setLoader(true)
     model.quantity = count
     model.specialInstruction = instruction
-    model.id = database().ref('addToCart/').push().key
+    model.id = database().ref(`addToCart/`).push().key
 
-    database().ref(`addToCart/${model.id}`).set(model)
+    database().ref(`addToCart/${login}/${model.id}/`).set(model)
       .then(res => {
         setLoader(false)
         ToastAndroid.show('Item added to Cart', ToastAndroid.LONG)

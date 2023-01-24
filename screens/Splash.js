@@ -1,4 +1,4 @@
-import { Text, Image, View } from 'react-native'
+import { Image, View } from 'react-native'
 import React, { useEffect } from 'react'
 
 const Splash = ({ navigation }) => {
@@ -10,6 +10,7 @@ const Splash = ({ navigation }) => {
     useEffect(() => {
         change()
     }, [])
+
     return (
         <>
             <View style={{ justifyContent: 'center', height: '100%', alignItems: 'center' }}>

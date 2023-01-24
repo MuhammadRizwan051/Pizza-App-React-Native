@@ -47,55 +47,64 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
 
     let [login, setLogin] = useState()
+    let [loginId, setLoginId] = useState()
     let getData = async () => {
         const jsonValue = await AsyncStorage.getItem('LoginKey')
         const data = jsonValue !== null ? JSON.parse(jsonValue) : null
         setLogin(data.category)
+        setLoginId(data.id)
     }
-    let type = login == "user";
-    console.log('login', login);
-    console.log('type', type);
+
     useEffect(() => {
         getData()
     }, [])
+
+    let type = login == "user";
+    let val = loginId
+
+    // console.log('login', login);
+    // console.log('type', type);
 
 
     let [orderList, setOrderList] = useState()
     let ordersData = () => {
         database().ref('orders').on('value', dt => {
             if (dt.exists()) {
-                console.log('dtVal', dt.val())
                 let li = Object.values(dt.val())
                 setOrderList(li)
             }
         })
     }
     let orderLength = orderList && setOrderList.length
-    console.log(orderLength)
-    console.log('orderList', setOrderList)
-
     useEffect(() => {
         ordersData()
     }, [])
 
 
     let [cartList, setCartList] = useState()
-    let cartData = () => {
-        database().ref('addToCart').on('value', dt => {
+    let [cartLength, setCartLength] = useState()
+    async function cartData() {
+        database().ref(`addToCart/${val}`).on('value', dt => {
+            // console.log('79', dt)
             if (dt.exists()) {
-                console.log('dtVal', dt.val())
-                let li = Object.values(dt.val())
-                setCartList(li)
+                let li = Object.values(dt.val());
+                console.log('li', dt.val());
+                setCartList(li);
             }
-        })
+            setCartLength(cartList.length);
+        });
     }
-    let cartLength = cartList && cartList.length
-    console.log(cartLength)
+    // let cartLength = cartList && cartList.length
+    console.log('Line 98', cartList)
+    console.log('Line 99', cartLength)
 
+
+
+    
     useEffect(() => {
         cartData()
-    }, [])
-
+    },[cartList])
+    
 
     return (
         <Tab.Navigator

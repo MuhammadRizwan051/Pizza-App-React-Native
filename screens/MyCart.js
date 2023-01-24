@@ -5,6 +5,7 @@ import database from '@react-native-firebase/database'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import SMTouchableOpacity from '../component/SMTouchableOpacity'
 import SMTextInput from '../component/SMTextInput'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const MyCart = ({ navigation }) => {
@@ -12,11 +13,26 @@ const MyCart = ({ navigation }) => {
     let [dataLoader, setDataLoader] = useState(false)
     let [checkoutLoader, setCheckoutLoader] = useState(false)
     let [count, setCount] = useState()
+    let [login, setLogin] = useState()
 
-    let getData = () => {
+
+    let getLoginData = async () => {
+        const jsonValue = await AsyncStorage.getItem('LoginKey')
+        const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+        setLogin(data.id)
+    }
+    // console.log('mycartid', login)
+    let val = login
+
+    useEffect(() => {
+        getLoginData()
+    }, [])
+
+
+    let getData = async () => {
         setDataLoader(true)
-        database().ref('addToCart').on('value', dt => {
-            if (dt.exists()) {
+        database().ref(`addToCart/${val}`).on('value', dt => {
+             if (dt.exists()) {
                 setDataLoader(false)
                 let li = Object.values(dt.val())
                 setList([...li])
@@ -26,19 +42,19 @@ const MyCart = ({ navigation }) => {
             }
         })
     }
-    console.log('list',list)
+    // console.log('list', list)
     useEffect(() => {
         getData()
     }, [])
 
 
-    let remove = async (e) => {
-        await database().ref(`addToCart/${e.id}`).remove()
-        console.log(e)
+    async function remove(e) {
+        await database().ref(`addToCart/${login}/${e.id}`).remove()
+        // console.log(e)
     }
 
     let add = (e) => {
-        console.log(e)
+        // console.log(e)
         let val = e.quantity
         setCount(val + 1)
         e.quantity = count
@@ -49,19 +65,27 @@ const MyCart = ({ navigation }) => {
     }
 
     let clearAll = async () => {
-        await database().ref(`addToCart/`).remove()
+        await database().ref(`addToCart/{${login}/`).remove()
         setList([])
-        console.log()
+        // console.log()
     }
 
-    let checkout = async () => {
-        setCheckoutLoader(true)
-        // list.unshift(database().ref('orders/').push().key)
 
-        let key = database().ref('orders/').push().key
-        await database().ref(`orders/${key}`).set(list)
+    let [currentDate, setCurrentDate] = useState()
+    let [currentTime, setCurrentTime] = useState()
+
+    let checkout = async () => {
+
+        const date = new Date()
+        setCurrentDate(date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear())
+        setCurrentTime(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds())
+        setCheckoutLoader(true)
+
+        // let key = database().ref(`orders/`).push().key
+        // let key = database().ref(`orders/${login}`)
+        await database().ref(`orders/${login}/`).set(list)
         // .try(async res => {
-        await database().ref(`addToCart/`).remove()
+        await database().ref(`addToCart/${login}/`).remove()
         setList([])
         navigation.navigate('Confirm Order')
         ToastAndroid.show('Ordered Successfully', ToastAndroid.LONG)
@@ -117,7 +141,7 @@ const MyCart = ({ navigation }) => {
                                 }
                             </ScrollView>
                         </View>
-                        <View style={{ width: '100%', borderLeftWidth: 1, borderRightWidth: 1, borderTopWidth: 3, borderTopRightRadius: 20, borderTopLeftRadius: 20, paddingHorizontal: 20, position: 'absolute', bottom: 10 }}>
+                        <View style={{ width: '100%', backgroundColor:'white', borderLeftWidth: 1, borderRightWidth: 1, borderTopWidth: 3, borderTopRightRadius: 20, borderTopLeftRadius: 20, paddingHorizontal: 20, position: 'absolute', bottom: 10 }}>
                             {/* <SMTextInput placeholder='Name' /> */}
                             {/* <SMTextInput value={model.name} placeholder='Name' style={[styles.input]} onChangeText={e => setModel({ ...model, name: e })} /> */}
                             <View style={{ marginBottom: 20, marginTop: 10 }}>
@@ -149,7 +173,7 @@ const MyCart = ({ navigation }) => {
                     :
                     <View style={{ height: '90%', justifyContent: 'center', alignItems: 'center' }}>
                         <Icon name='shopping-bag' size={80} color='#DC3535' />
-                        <Text style={{ fontSize: 32, color:'#DC3535' }}>Cart is Empty</Text>
+                        <Text style={{ fontSize: 32, color: '#DC3535' }}>Cart is Empty</Text>
                     </View>
                 )
             }

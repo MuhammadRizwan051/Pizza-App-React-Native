@@ -25,6 +25,7 @@ function Login({ navigation }) {
         const user = res.user
         database().ref(`appUsers/${user.uid}`).on('value', dt => {
           // category = dt.val().category
+          console.log('first', dt.val())
 
           const storeData = async () => {
             try {
